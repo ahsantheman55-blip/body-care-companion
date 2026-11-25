@@ -1,0 +1,1680 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Body Care Companion</title>
+<meta name="description" content="A VoiceOver-friendly body map, research reports and gentle self-care tools. Not a diagnostic app.">
+<meta name="theme-color" content="#123a5a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Body Care">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#333;--accent:#0b4f8a;--accent-fg:#fff;--line:#555;--notice:#fff4d6;--danger:#a00000;--focus:#ff8c00}
+html.hc{--bg:#000;--fg:#fff;--muted:#fff;--accent:#ffeb3b;--accent-fg:#000;--line:#fff;--notice:#1a1a00;--danger:#ff6b6b;--focus:#00e5ff}
+html{font-size:112.5%;-webkit-text-size-adjust:100%}
+html.big{font-size:137.5%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+.skip{position:absolute;left:-999px;top:0;background:var(--accent);color:var(--accent-fg);padding:12px 16px;z-index:9}
+.skip:focus{left:8px;top:8px}
+header{background:var(--accent);color:var(--accent-fg);padding:8px 12px}
+header .appname{margin:4px 0 8px;font-weight:700;font-size:1.1rem}
+header nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+header nav a{display:inline-flex;align-items:center;min-height:44px;padding:4px 10px;color:var(--accent-fg);border:2px solid var(--accent-fg);border-radius:8px;text-decoration:none;font-size:.95rem}
+main{padding:12px 14px 40px;max-width:46rem;margin:0 auto}
+main:focus{outline:none}
+h1{font-size:1.6rem;line-height:1.25;margin:.6em 0 .4em}
+h2{font-size:1.3rem;margin:1.4em 0 .4em;border-top:2px solid var(--line);padding-top:.6em}
+h3{font-size:1.1rem;margin:1em 0 .2em}
+a{color:var(--accent)}
+html.hc a{color:#ffeb3b}
+button,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:48px;padding:10px 16px;margin:4px 0;font:inherit;font-size:1rem;border:2px solid var(--accent);border-radius:10px;background:var(--bg);color:var(--accent);text-decoration:none;cursor:pointer;text-align:left}
+html.hc button,html.hc .btn{color:#ffeb3b;border-color:#ffeb3b}
+button.primary,.btn.primary{background:var(--accent);color:var(--accent-fg)}
+html.hc button.primary,html.hc .btn.primary{background:#ffeb3b;color:#000}
+button.danger{border-color:var(--danger);color:var(--danger)}
+button[aria-pressed=true]{background:var(--accent);color:var(--accent-fg)}
+button[aria-pressed=true]::after{content:" (saved)"}
+button:disabled{opacity:.6}
+.small-btn{min-height:44px;padding:6px 12px}
+:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+ul.cards{list-style:none;padding:0;margin:.5em 0}
+ul.cards li{margin:6px 0}
+ul.cards .btn,ul.cards button{width:100%;justify-content:flex-start}
+ul.spots,ul.terms{list-style:none;padding:0}
+ul.spots li,ul.terms li{border-bottom:1px solid var(--line);padding:4px 0 10px}
+ol.plan>li{margin-bottom:1.2em}
+fieldset{border:2px solid var(--line);border-radius:10px;margin:12px 0;padding:8px 12px}
+legend{font-weight:700;padding:0 6px}
+.opt{display:flex;align-items:center;min-height:48px}
+.opt input{width:28px;height:28px;margin:0 12px 0 0;flex:none}
+.opt label{flex:1;padding:8px 0}
+.field{margin:12px 0}
+.field label{display:block;font-weight:700;margin-bottom:4px}
+select,input[type=search],input[type=text],textarea,input[type=file]{font:inherit;font-size:1rem;width:100%;box-sizing:border-box;min-height:48px;padding:8px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+select[multiple]{min-height:120px}
+details{border:2px dashed var(--line);border-radius:10px;padding:6px 12px;margin:12px 0}
+summary{min-height:48px;display:flex;align-items:center;font-weight:700;cursor:pointer}
+.notice{background:var(--notice);border:2px solid var(--line);border-radius:10px;padding:4px 14px;margin:12px 0}
+.notice h2{border:0;margin-top:.4em}
+.care{font-weight:700}
+.evidence{font-weight:700;border-left:6px solid var(--accent);padding-left:10px}
+.small{font-size:.9rem;color:var(--muted)}
+.sources li{word-break:break-word;margin-bottom:6px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+footer{padding:16px 16px 80px;border-top:2px solid var(--line);font-size:.95rem}
+#print-area{display:none}
+@media print{header,main,footer,.skip{display:none!important}#print-area{display:block;white-space:pre-wrap;font:12pt/1.5 Georgia,serif;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header>
+<p class="appname">Body Care Companion</p>
+<nav aria-label="Main menu"><ul>
+<li><a href="#/">Home</a></li>
+<li><a href="#/check">Morning check</a></li>
+<li><a href="#/map">Body map</a></li>
+<li><a href="#/plan">Today's plan</a></li>
+<li><a href="#/progress">Progress</a></li>
+<li><a href="#/reports">Reports</a></li>
+<li><a href="#/glossary">Glossary</a></li>
+<li><a href="#/learn">Quizzes</a></li>
+<li><a href="#/tools">Timer and breathing</a></li>
+<li><a href="#/equipment">Equipment</a></li>
+<li><a href="#/share">Share and backup</a></li>
+<li><a href="#/safety">Safety</a></li>
+<li><a href="#/settings">Settings</a></li>
+</ul></nav>
+</header>
+<main id="main" tabindex="-1"><h1>Body Care Companion</h1><p>Loading. If nothing appears, please make sure JavaScript is turned on.</p></main>
+<div id="live" class="sr" aria-live="polite" aria-atomic="true"></div>
+<footer><p>Ideas to consider, not a diagnosis. Emergency: <a href="tel:999">999</a>. Urgent advice: <a href="tel:111">NHS 111</a>. <a href="#/safety">Safety page</a>.</p></footer>
+<div id="print-area"></div>
+<script>/* Body Care Companion: pure logic (no DOM). Body map, analysis engine, quick-check, backup. */
+(function (root) {
+'use strict';
+var LINES = {
+  SBL: { name: 'Superficial back line', short: 'back line',
+    path: 'the soles of the feet, heels, calves, backs of the thighs, sacrum, the long muscles beside the spine, the base of the skull, over the scalp to the brow',
+    evidence: 'Dissection studies give strong support that these tissues are physically continuous (Wilke and colleagues, 2016).' },
+  SFL: { name: 'Superficial front line', short: 'front line',
+    path: 'the tops of the toes and feet, the shins, the front of the thighs, the belly, the breastbone and the side of the neck',
+    evidence: 'Dissection studies found no clear evidence that this line is continuous, so treat it as a loose idea only.' },
+  LL: { name: 'Lateral line', short: 'side line',
+    path: 'the outer edge of the foot and ankle, the outer lower leg, the outer thigh (the IT band), the outer hip, the side of the waist, the sides of the ribs and the side of the neck to behind the ear',
+    evidence: 'Partly supported by dissection studies.' },
+  SPL: { name: 'Spiral line', short: 'spiral line',
+    path: 'a double wrap that runs from one side of the skull, across the upper back between the shoulder blades, around the ribs to the opposite hip, down the outer thigh and shin, under the arch and back up the back of the leg',
+    evidence: 'Partly supported by dissection studies. It is one reason a problem can link to the opposite side.' },
+  DFL: { name: 'Deep front line', short: 'deep front line',
+    path: 'the inner arch, deep calf, inner knee and inner thigh, the pelvic floor, the hip flexor (psoas), the diaphragm, the front of the spine, and up to the jaw and the floor of the mouth',
+    evidence: 'Not assessed in the main dissection review; it is a teaching model, though the psoas and diaphragm really do meet at the upper lumbar spine.' },
+  BFL: { name: 'Back functional line', short: 'back cross line',
+    path: 'from one shoulder blade and the large back muscle (latissimus), across the low back fascia, to the opposite buttock and outer thigh',
+    evidence: 'Strong support from dissection studies. It links one side of the upper back to the opposite hip.' },
+  FFL: { name: 'Front functional line', short: 'front cross line',
+    path: 'from the chest muscle on one side, down the front of the belly, across the pubic bone to the opposite inner thigh',
+    evidence: 'Strong support from dissection studies. It links one side of the chest to the opposite inner thigh.' },
+  ARM: { name: 'Arm lines', short: 'arm lines',
+    path: 'from the chest and upper back, over the shoulder, down the arm to the hand',
+    evidence: 'A teaching model; links between the shoulder, arm and hand are well known in everyday physiotherapy.' }
+};
+function L(id, name, lines) { return { id: id, name: name, lines: lines ? lines.split(' ') : [] }; }
+var REGIONS = [
+ { id:'feet', name:'Feet and toes', risk:1, sides:true, intro:'The soles, arches, heels and toes. A low-risk place to start, and the bottom of several fascial lines.',
+   locations:[L('toes','Toes','SFL SBL'),L('ball','Ball of the foot','SBL DFL'),L('arch','Inner arch','SBL DFL SPL'),L('heel','Heel and underside of the heel','SBL'),L('top','Top of the foot','SFL'),L('outeredge','Outer edge of the foot','LL')] },
+ { id:'ankles', name:'Ankles', risk:1, sides:true, intro:'Inner and outer ankle, the front of the ankle and the Achilles tendon.',
+   locations:[L('inner','Inner ankle','DFL'),L('outer','Outer ankle','LL SPL'),L('front','Front of the ankle','SFL SPL'),L('achilles','Achilles tendon (back of the ankle)','SBL')] },
+ { id:'lowerlegs', name:'Shins and calves', risk:1, sides:true, intro:'The shin, the inner shin edge, the calf and the outer lower leg.',
+   locations:[L('shin','Front of the shin','SFL SPL'),L('innershin','Inner edge of the shin','DFL'),L('calfupper','Upper calf','SBL'),L('calflower','Lower calf (soleus)','SBL DFL'),L('outerleg','Outer lower leg','LL SPL')] },
+ { id:'knees', name:'Knees', risk:1, sides:true, intro:'Around the kneecap, the inner and outer knee and the back of the knee. Avoid pressing hard on the kneecap or the back of the knee.',
+   locations:[L('front','Front of the knee and kneecap','SFL'),L('inner','Inner knee','DFL'),L('outer','Outer knee','LL'),L('back','Back of the knee','SBL')] },
+ { id:'thighs', name:'Thighs', risk:1, sides:true, intro:'Front, inner, outer and back of the thigh.',
+   locations:[L('front','Front of the thigh (quadriceps)','SFL'),L('inner','Inner thigh (adductors)','DFL FFL'),L('outer','Outer thigh (IT band)','LL SPL'),L('back','Back of the thigh (hamstrings)','SBL')] },
+ { id:'hips', name:'Hips and buttocks', risk:2, sides:true, intro:'The front of the hip and hip flexors, the outer hip, the buttock and the deep hip.',
+   locations:[L('front','Front of the hip (hip flexor, psoas area)','DFL'),L('outer','Outer hip','LL SPL'),L('buttock','Buttock (large gluteal muscle)','BFL SBL'),L('piriformis','Deep buttock (piriformis area)','DFL'),L('groin','Groin crease','DFL FFL'),L('joint','Deep in the hip joint','DFL')] },
+ { id:'pelvis', name:'Pelvis', risk:2, sides:true, intro:'The sacrum, the sacroiliac joints, the tailbone, the top of the hip bone and the pubic bone.',
+   locations:[L('sacrum','Sacrum (flat bone at the base of the spine)','SBL'),L('sij','Sacroiliac joint (dimple area)','SBL BFL'),L('tailbone','Tailbone (coccyx)','SBL DFL'),L('crest','Top of the hip bone (iliac crest)','LL'),L('pubic','Pubic bone','SFL DFL FFL')] },
+ { id:'private', name:'Private area', risk:3, sides:true, discreet:true, intro:'Kept deliberately general. Only you know the detail; you can write as much or as little as you like.',
+   locations:[L('front','Private area, front','DFL'),L('back','Private area, back','DFL'),L('floor','Pelvic floor, general','DFL')] },
+ { id:'lowerback', name:'Lower back', risk:2, sides:true, spine:true, intro:'Lumbar vertebrae L5 (lowest) up to L1, the muscles beside them and the side of the waist.',
+   locations:[L('L5','L5 vertebra','SBL DFL'),L('L4','L4 vertebra','SBL DFL'),L('L3','L3 vertebra','SBL DFL'),L('L2','L2 vertebra','SBL DFL'),L('L1','L1 vertebra','SBL DFL'),L('muscles','Muscles beside the lower spine','SBL'),L('waist','Side of the waist (quadratus lumborum)','LL DFL'),L('fascia','Low back fascia (across the low back)','BFL SBL')] },
+ { id:'midback', name:'Mid back', risk:2, sides:true, spine:true, intro:'Thoracic vertebrae T12 up to T7, and the muscles beside them. Ribs 7 to 12 join the spine here.',
+   locations:[L('T12','T12 vertebra','SBL DFL'),L('T11','T11 vertebra','SBL DFL'),L('T10','T10 vertebra','SBL'),L('T9','T9 vertebra','SBL'),L('T8','T8 vertebra','SBL'),L('T7','T7 vertebra','SBL'),L('muscles','Muscles beside the mid spine','SBL SPL'),L('bladeedge','Lower tip of the shoulder blade','SPL BFL')] },
+ { id:'upperback', name:'Upper back', risk:2, sides:true, spine:true, intro:'Thoracic vertebrae T6 up to T1, between and around the shoulder blades.',
+   locations:[L('T6','T6 vertebra','SBL'),L('T5','T5 vertebra','SBL'),L('T4','T4 vertebra','SBL'),L('T3','T3 vertebra','SBL'),L('T2','T2 vertebra','SBL'),L('T1','T1 vertebra','SBL'),L('between','Between the shoulder blades (rhomboids)','SPL'),L('innerblade','Inner edge of the shoulder blade','SPL'),L('topblade','Top of the shoulder blade','ARM')] },
+ { id:'ribs', name:'Ribs', risk:2, sides:true, ribs:true, intro:'Ribs 1 to 12 on each side, at the front, side or back, and the 11 spaces between them (intercostal spaces). Ribs 1 to 7 are true ribs, 8 to 10 false ribs, and 11 and 12 floating ribs.',
+   positions:[{id:'front',name:'Front'},{id:'side',name:'Side'},{id:'back',name:'Back, near the spine'}],
+   locations:(function(){var a=[],i;for(i=1;i<=12;i++){a.push(L('rib'+i,'Rib '+i,''));if(i<12)a.push(L('ics'+i,'Space between rib '+i+' and rib '+(i+1),''));}return a;})() },
+ { id:'chest', name:'Breastbone, chest and belly', risk:2, sides:true, intro:'The breastbone (sternum), collarbones, chest muscles, the lower edge of the ribcage where the diaphragm attaches, and the belly.',
+   locations:[L('manubrium','Top of the breastbone','SFL'),L('sternum','Middle of the breastbone','SFL'),L('xiphoid','Bottom tip of the breastbone (xiphoid)','SFL DFL'),L('collarbone','Collarbone','ARM SFL'),L('pec','Chest muscle','FFL ARM'),L('costal','Lower edge of the ribcage (diaphragm edge)','DFL SFL'),L('belly','Belly','SFL FFL')] },
+ { id:'shoulders', name:'Shoulders', risk:2, sides:true, intro:'The front, top and back of the shoulder and the armpit.',
+   locations:[L('front','Front of the shoulder','ARM FFL'),L('top','Top of the shoulder (upper trapezius)','ARM SPL'),L('back','Back of the shoulder','ARM BFL'),L('armpit','Armpit edge','ARM LL')] },
+ { id:'arms', name:'Arms', risk:1, sides:true, intro:'Upper arm, elbow, forearm and wrist.',
+   locations:[L('upperfront','Front of the upper arm','ARM'),L('upperback','Back of the upper arm','ARM'),L('elbowin','Inner elbow','ARM'),L('elbowout','Outer elbow','ARM'),L('forearm','Forearm','ARM'),L('wrist','Wrist','ARM')] },
+ { id:'hands', name:'Hands', risk:1, sides:true, intro:'Palm, thumb, fingers and the back of the hand.',
+   locations:[L('palm','Palm','ARM'),L('thumb','Base of the thumb','ARM'),L('fingers','Fingers','ARM'),L('back','Back of the hand','ARM')] },
+ { id:'neck', name:'Neck', risk:3, sides:true, spine:true, intro:'Cervical vertebrae C7 (the bump at the base of the neck) up to C1 under the skull, and the muscles of the neck. Extra gentle here.',
+   locations:[L('C7','C7 vertebra','SBL'),L('C6','C6 vertebra','SBL'),L('C5','C5 vertebra','SBL'),L('C4','C4 vertebra','SBL'),L('C3','C3 vertebra','SBL'),L('C2','C2 vertebra','SBL'),L('C1','C1 vertebra (atlas)','SBL'),L('backmuscles','Back of the neck muscles','SBL SPL'),L('side','Side of the neck','LL SPL SFL'),L('front','Front of the neck','DFL SFL')] },
+ { id:'jaw', name:'Jaw', risk:2, sides:true, intro:'The jaw joint in front of the ear, the chewing muscles and under the jaw.',
+   locations:[L('joint','Jaw joint, in front of the ear','DFL'),L('masseter','Chewing muscle (cheek)','DFL'),L('under','Under the jaw','DFL'),L('temple','Temple chewing muscle','LL')] },
+ { id:'head', name:'Skull and head', risk:2, sides:true, intro:'The base of the skull, the back and top of the head, the temples, the forehead and behind the ears.',
+   locations:[L('suboccipital','Base of the skull (suboccipital muscles)','SBL SPL'),L('back','Back of the head','SBL'),L('top','Top of the head','SBL'),L('temple','Temple','LL'),L('forehead','Forehead','SBL'),L('behindear','Behind the ear','LL SPL')] },
+ { id:'eyes', name:'Around and behind the eyes', risk:3, sides:true, intro:'The brow, the bony rim around the eye, the cheekbone and the feeling behind the eye. Never press on the eyeball itself.',
+   locations:[L('brow','Eyebrow and brow ridge','SBL'),L('rim','Bony rim around the eye','SBL'),L('cheek','Cheekbone under the eye','SFL'),L('templeeye','Outer corner by the temple','LL'),L('behind','Behind the eye (felt)','SBL SPL')] }
+];
+var REGION_BY_ID = {}; REGIONS.forEach(function (r, i) { r.order = i; REGION_BY_ID[r.id] = r; });
+var SENSATIONS = [['egg','Egg or lump'],['itch','Itch'],['pain','Pain'],['tight','Tight'],['pulling','Pulling'],['numb','Numb'],['tingling','Tingling'],['clicking','Clicking'],['warmth','Warmth']];
+var QUALITIES = [['sharp','Sharp'],['dull','Dull'],['ache','Ache'],['burning','Burning']];
+var DEPTHS = [['surface','Surface'],['deep','Deep'],['unsure','Not sure']];
+var SIZES = [['pinpoint','Pinpoint, like a pea or smaller'],['coin','Coin sized'],['palm','Palm sized'],['larger','Larger than a palm']];
+var COUNTS = [['1','One'],['2','Two'],['3','Three'],['4-5','Four or five'],['6-10','Six to ten'],['many','More than ten']];
+var EQUIPMENT = [['oil','Massage oil'],['traction','Traction device'],['bands','Resistance bands'],['gymball','Gym ball'],['foamroller','Foam roller'],['smallball','Small massage ball or tennis ball'],['heat','Heat pack or hot water bottle'],['cold','Cold pack'],['towel','Towel (to roll up)'],['pillow','Pillows or a bolster'],['wall','A clear wall'],['step','A stair or step'],['chair','A sturdy chair']];
+var RISK_NAME = { 1: 'lower-risk area', 2: 'take-care area', 3: 'extra-gentle area' };
+function known(list, id) { for (var i = 0; i < list.length; i++) if (list[i][0] === id) return true; return false; }
+function label(list, id) { for (var i = 0; i < list.length; i++) if (list[i][0] === id) return list[i][1]; return id; }
+
+function pad(n) { return (n < 10 ? '0' : '') + n; }
+function today(d) { d = d || new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function daysBetween(a, b) { return Math.round((Date.parse(b + 'T12:00:00') - Date.parse(a + 'T12:00:00')) / 86400000); }
+function uid() { return 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+function emptyState() {
+  return { app: 'body-care-companion', version: 1, spots: [], equipment: ['oil','traction','bands','gymball'], checkins: [], journal: [],
+    bookmarks: { reports: [], terms: [] }, settings: { contrast: false, bigText: false, breathVoice: false }, last: { route: '' },
+    lastExport: null, lastChange: null, quizStats: { right: 0, asked: 0 } };
+}
+function locOf(region, locId) { for (var i = 0; i < region.locations.length; i++) if (region.locations[i].id === locId) return region.locations[i]; return null; }
+function sideWord(s) { return s === 'L' ? 'left' : s === 'R' ? 'right' : s === 'C' ? 'centre' : s === 'B' ? 'both sides' : ''; }
+function spotName(spot) {
+  var r = REGION_BY_ID[spot.region]; if (!r) return 'Unknown spot';
+  var l = locOf(r, spot.loc); var n = l ? l.name : spot.loc;
+  if (r.ribs && spot.pos) { var p = { front: 'front', side: 'side', back: 'back' }[spot.pos]; n += ', ' + p; }
+  if (spot.side && spot.side !== 'C') n += ', ' + sideWord(spot.side);
+  if (spot.side === 'C') n += ', centre';
+  return n;
+}
+function spotLines(spot) {
+  var r = REGION_BY_ID[spot.region]; if (!r) return [];
+  if (r.ribs) {
+    var n = parseInt(String(spot.loc).replace(/\D/g, ''), 10) || 0, out;
+    if (spot.pos === 'back') out = ['SBL', 'SPL']; else if (spot.pos === 'side') out = ['LL', 'SPL']; else out = ['SFL', 'FFL'];
+    if (n >= 7) out.push('DFL');
+    if (spot.pos === 'back' && n >= 7) out.push('BFL');
+    return out;
+  }
+  var l = locOf(r, spot.loc); return l ? l.lines.slice() : [];
+}
+function spotRisk(spot) {
+  var r = REGION_BY_ID[spot.region]; if (!r) return 2;
+  var risk = r.risk;
+  if (r.ribs && spot.pos === 'back') risk = 3;
+  if (r.spine && /^[TLC]\d+$/.test(spot.loc)) risk = Math.max(risk, 3);
+  if (spot.region === 'head' && spot.loc === 'suboccipital') risk = 3;
+  if (spot.region === 'chest' && /manubrium|sternum|xiphoid/.test(spot.loc)) risk = Math.max(risk, 2);
+  return risk;
+}
+function latest(spot) { return spot.history && spot.history.length ? spot.history[spot.history.length - 1] : {}; }
+function first(spot) { return spot.history && spot.history.length ? spot.history[0] : {}; }
+
+/* ---------- Map operations ---------- */
+function validateEntry(e) {
+  e = e || {};
+  var out = { date: e.date || today(), sensations: (e.sensations || []).filter(function (s) { return known(SENSATIONS, s); }),
+    qualities: (e.qualities || []).filter(function (s) { return known(QUALITIES, s); }), depth: e.depth || '', size: e.size || '', count: e.count || '',
+    intensity: Math.max(0, Math.min(10, parseInt(e.intensity, 10) || 0)), worseMove: !!e.worseMove, worseBreath: !!e.worseBreath,
+    cluster3: !!e.cluster3, linked: e.linked || [], desc: (e.desc || '').slice(0, 4000), note: (e.note || '').slice(0, 4000) };
+  return out;
+}
+function addSpot(state, f, now) {
+  var r = REGION_BY_ID[f.region]; if (!r) throw new Error('Unknown region');
+  if (!locOf(r, f.loc)) throw new Error('Unknown location');
+  var d = today(now);
+  var spot = { id: f.id || uid(), region: f.region, loc: f.loc, pos: r.ribs ? (f.pos || 'back') : '', side: f.side || 'C',
+    status: 'open', created: d, updated: d, history: [], worked: [] };
+  var e = validateEntry(f); e.date = d; spot.history.push(e);
+  state.spots.push(spot); state.lastChange = d; return spot;
+}
+function findSpot(state, id) { for (var i = 0; i < state.spots.length; i++) if (state.spots[i].id === id) return state.spots[i]; return null; }
+function updateSpot(state, id, f, now) {
+  var s = findSpot(state, id); if (!s) throw new Error('No such spot');
+  var e = validateEntry(f); e.date = today(now);
+  s.history.push(e);
+  if (s.history.length > 400) s.history.splice(1, s.history.length - 400);
+  s.updated = e.date; if (s.status === 'resolved' && e.intensity > 0) s.status = 'open';
+  state.lastChange = e.date; return s;
+}
+function quickIntensity(state, id, value, now) {
+  var s = findSpot(state, id); if (!s) return null;
+  if (value === 'gone') { var e0 = validateEntry(latest(s)); e0.intensity = 0; e0.note = 'Gone today (morning check).'; updateSpot(state, id, e0, now); setStatus(state, id, 'resolved', now); return s; }
+  if (value === 'same' || value === '' || value == null) return s;
+  var e = validateEntry(latest(s)); e.intensity = parseInt(value, 10); e.note = ''; e.desc = latest(s).desc || '';
+  updateSpot(state, id, e, now);
+  var f = first(s).intensity || 0;
+  if (s.status === 'open' && f > 0 && e.intensity <= f / 2) s.status = 'improved';
+  return s;
+}
+function setStatus(state, id, status, now) {
+  var s = findSpot(state, id); if (!s) return null;
+  if (['open', 'improved', 'resolved'].indexOf(status) < 0) throw new Error('Bad status');
+  s.status = status; s.updated = today(now); s.statusLog = s.statusLog || []; s.statusLog.push({ date: today(now), status: status });
+  state.lastChange = today(now); return s;
+}
+function markWorked(state, id, approach, result, now) {
+  var s = findSpot(state, id); if (!s) return null;
+  s.worked.push({ date: today(now), approach: approach || 'direct', result: result || '' });
+  s.updated = today(now); state.lastChange = today(now); return s;
+}
+function deleteSpot(state, id) { var n = state.spots.length; state.spots = state.spots.filter(function (s) { return s.id !== id; }); state.spots.forEach(function (s) { s.history.forEach(function (e) { e.linked = (e.linked || []).filter(function (x) { return x !== id; }); }); }); return state.spots.length < n; }
+function openSpots(state) { return state.spots.filter(function (s) { return s.status !== 'resolved'; }); }
+function workedToday(spot, now) { var d = today(now); return spot.worked.some(function (w) { return w.date === d; }); }
+function priority(spot, now) {
+  var e = latest(spot), p = e.intensity || 0;
+  if (e.cluster3) p += 2;
+  if (e.count && e.count !== '1' && e.count !== '2') p += 1;
+  if (e.worseBreath) p += 1;
+  if (e.worseMove) p += 0.5;
+  if ((e.sensations || []).indexOf('egg') >= 0) p += 0.5;
+  if (spot.status === 'improved') p -= 2;
+  if (spot.updated && now && daysBetween(spot.updated, today(now)) <= 2) p += 0.5;
+  if (workedToday(spot, now)) p -= 3;
+  return Math.round(p * 10) / 10;
+}
+function sortSpots(list, by, now) {
+  var a = list.slice();
+  if (by === 'region') a.sort(function (x, y) { return REGION_BY_ID[x.region].order - REGION_BY_ID[y.region].order || spotName(x).localeCompare(spotName(y)); });
+  else if (by === 'date') a.sort(function (x, y) { return (y.updated || '').localeCompare(x.updated || ''); });
+  else a.sort(function (x, y) { return priority(y, now) - priority(x, now) || REGION_BY_ID[x.region].order - REGION_BY_ID[y.region].order; });
+  return a;
+}
+function describeEntry(e) {
+  var bits = [];
+  if (e.sensations && e.sensations.length) bits.push(e.sensations.map(function (s) { return label(SENSATIONS, s).toLowerCase(); }).join(', '));
+  if (e.qualities && e.qualities.length) bits.push(e.qualities.join(', '));
+  bits.push('intensity ' + (e.intensity || 0) + ' out of 10');
+  if (e.depth) bits.push(label(DEPTHS, e.depth).toLowerCase());
+  if (e.size) bits.push(label(SIZES, e.size).toLowerCase());
+  if (e.count) bits.push('how many: ' + label(COUNTS, e.count).toLowerCase());
+  if (e.cluster3) bits.push('cluster of three');
+  if (e.worseMove) bits.push('worse on movement');
+  if (e.worseBreath) bits.push('worse on breathing');
+  return bits.join('; ');
+}
+function historyByDate(state) {
+  var days = {};
+  state.spots.forEach(function (s) {
+    s.history.forEach(function (e) { (days[e.date] = days[e.date] || []).push({ kind: 'entry', spot: s, entry: e }); });
+    (s.worked || []).forEach(function (w) { (days[w.date] = days[w.date] || []).push({ kind: 'worked', spot: s, worked: w }); });
+    (s.statusLog || []).forEach(function (st) { (days[st.date] = days[st.date] || []).push({ kind: 'status', spot: s, status: st.status }); });
+  });
+  (state.checkins || []).forEach(function (c) { (days[c.date] = days[c.date] || []).push({ kind: 'checkin', checkin: c }); });
+  (state.journal || []).forEach(function (j) { (days[j.date] = days[j.date] || []).push({ kind: 'journal', journal: j }); });
+  return Object.keys(days).sort().reverse().map(function (d) { return { date: d, items: days[d] }; });
+}
+function progress(state) {
+  var eased = [], worse = [], same = [], resolved = 0, improved = 0, open = 0, firstTotal = 0, nowTotal = 0;
+  state.spots.forEach(function (s) {
+    if (s.status === 'resolved') resolved++; else if (s.status === 'improved') improved++; else open++;
+    var f = first(s).intensity || 0, n = s.status === 'resolved' ? 0 : (latest(s).intensity || 0);
+    firstTotal += f; nowTotal += n;
+    var item = { spot: s, from: f, to: n, since: s.created, entries: s.history.length };
+    if (n < f) eased.push(item); else if (n > f) worse.push(item); else same.push(item);
+  });
+  eased.sort(function (a, b) { return (b.from - b.to) - (a.from - a.to); });
+  return { total: state.spots.length, open: open, improved: improved, resolved: resolved, eased: eased, worse: worse, same: same, firstTotal: firstTotal, nowTotal: nowTotal };
+}
+
+/* ---------- Technique ideas ---------- */
+function has(eq, id) { return eq.indexOf(id) >= 0; }
+function regionIdeas(spot, eq) {
+  var r = spot.region, ideas = [], loc = spot.loc;
+  var oil = has(eq, 'oil') ? 'With a little massage oil to cut friction, ' : '';
+  switch (r) {
+   case 'feet':
+    ideas.push(oil + 'slow thumb strokes along the sole from heel towards toes, easing pressure wherever it feels sharp.');
+    if (has(eq, 'smallball')) ideas.push('Sitting down, roll the sole slowly over the small ball for one to two minutes, then rest the foot on the ball and keep still on a tender spot for 30 to 90 seconds.');
+    if (has(eq, 'bands')) ideas.push('Loop a resistance band round the ball of the foot and gently point and flex the ankle 10 times.');
+    if (has(eq, 'towel')) ideas.push('Towel stretch: towel round the ball of the foot, knee straight, pull gently for 20 to 30 seconds, 3 times (NHS plantar fasciitis advice).');
+    ideas.push('Spread and curl the toes slowly 10 times.');
+    break;
+   case 'ankles': case 'lowerlegs':
+    ideas.push(oil + 'long, flat-handed strokes up the lower leg towards the knee, then small circles around any lump.');
+    ideas.push('Ankle circles, 10 each way, slow and within comfort.');
+    if (has(eq, 'wall')) ideas.push('Calf stretch at the wall, back knee straight then slightly bent, 20 to 30 seconds each.');
+    if (has(eq, 'bands')) ideas.push('Band ankle work: pull the foot up, out and in against a light band, 10 each.');
+    if (has(eq, 'foamroller')) ideas.push('Foam roller under the calf, slow two to four second rolls for about 90 seconds.');
+    if (has(eq, 'step')) ideas.push('Heel drops off a step, holding a rail, slowly, 5 to 10 times.');
+    break;
+   case 'knees':
+    ideas.push('Do not press hard on the kneecap or the back of the knee. Work the muscles just above and below instead.');
+    ideas.push(oil + 'light circles around the edge of the kneecap with fingertips.');
+    if (has(eq, 'towel')) ideas.push('Lying down, rolled towel under the knee, gently press the knee down into it and relax, 10 times.');
+    break;
+   case 'thighs':
+    if (has(eq, 'foamroller')) ideas.push('Foam roller on the front, inner or back of the thigh, slow rolls for about 90 seconds. On the outer thigh, roll the muscle just in front of or behind the IT band rather than grinding on it.');
+    if (has(eq, 'bands')) ideas.push('Lying on your back, band round the foot, raise the straight leg gently to a light hamstring stretch, 20 to 30 seconds.');
+    ideas.push(oil + 'kneading and long strokes up the thigh.');
+    if (loc === 'inner' && has(eq, 'gymball')) ideas.push('Sit on the gym ball with feet wide and gently rock side to side to ease the inner thigh.');
+    break;
+   case 'hips':
+    if (has(eq, 'gymball')) ideas.push('Sitting on the gym ball, slow hip circles and figure-of-eights for a minute.');
+    if (loc === 'front' || loc === 'groin' || loc === 'joint') {
+      ideas.push('Gentle half-kneeling hip flexor stretch' + (has(eq, 'pillow') ? ' with a pillow under the knee' : '') + ', tuck the tailbone slightly, 20 to 30 seconds.');
+      ideas.push('Positional release for the psoas area: lie on your back with knees bent' + (has(eq, 'gymball') ? ' and calves resting on the gym ball' : (has(eq, 'pillow') ? ' over pillows' : '')) + ', let the knees drift towards the sore side until it eases, and rest there about 90 seconds.');
+    } else {
+      if (has(eq, 'smallball') && has(eq, 'wall')) ideas.push('Small ball between the buttock and a wall, lean in lightly and stay still on a tender spot for 30 to 90 seconds. Move off at once if you feel tingling down the leg.');
+      ideas.push('Lying on your back, figure-four stretch: ankle over the opposite knee, gently draw the knees towards you, 20 to 30 seconds.');
+    }
+    if (has(eq, 'bands')) ideas.push('Band round the thighs above the knees, gentle side steps or clamshells, 10 each side.');
+    break;
+   case 'pelvis':
+    ideas.push('Lying on your back, knees bent, slow pelvic tilts and gentle knee rocks side to side for a minute.');
+    ideas.push('Muscle energy idea for the sacroiliac area: lying on your back, knees bent, press both knees gently outwards into your hands (or a band) at about 20 percent effort for 5 seconds, relax, repeat 3 times; then squeeze a pillow between the knees the same way.');
+    if (has(eq, 'gymball')) ideas.push('Sitting on the gym ball, small pelvic tilts forwards, back and side to side.');
+    if (has(eq, 'heat')) ideas.push('A warm (not hot) heat pack on the sacrum for 10 minutes before you start.');
+    break;
+   case 'private':
+    ideas.push('Outside the body only, and very light. Relaxed breathing: on each breath in, let the pelvic floor soften and drop; on each breath out, let it gently return. 10 breaths.');
+    if (has(eq, 'heat')) ideas.push('A warm (not hot) heat pack over clothing can help muscles soften.');
+    if (has(eq, 'gymball')) ideas.push('Sitting on the gym ball, tiny slow circles with the pelvis.');
+    ideas.push('Inner thighs, hips and the diaphragm are linked to this area through the deep front line, so easing those first can help. A specialist pelvic health physiotherapist is the right person for anything more.');
+    break;
+   case 'lowerback':
+    ideas.push('Lying on your back, hug one knee then both knees gently to the chest, 20 to 30 seconds.');
+    if (has(eq, 'gymball')) ideas.push('Kneel and drape your chest over the gym ball, letting the back round and relax for a minute; or sit on it and do small pelvic tilts.');
+    if (has(eq, 'traction')) ideas.push('Traction: only if it is completely pain-free, at the lowest setting, for one to two minutes, and stop at once if you feel tingling, numbness or more pain. Ideally have a physio set the force.');
+    if (has(eq, 'smallball') && has(eq, 'wall')) ideas.push('Small ball against a wall just beside the spine (never on the bony bumps), lean in lightly.');
+    if (has(eq, 'foamroller')) ideas.push('Do not foam roll directly on the lower spine. Roll the buttocks and upper back instead.');
+    ideas.push(oil + 'slow strokes either side of the spine, moving outwards towards the waist.');
+    break;
+   case 'midback': case 'upperback':
+    if (has(eq, 'foamroller')) ideas.push('Foam roller across the upper or mid back (not the lower back), hands supporting the head, gently lean back over it for 3 to 5 slow breaths, then move it up an inch.');
+    ideas.push('Open book: lie on your side, knees bent, arms together in front; slowly open the top arm across and follow it with your head, 5 to 10 times each side.');
+    if (has(eq, 'gymball')) ideas.push('Lie back over the gym ball with feet on the floor and let the upper back curve over it, supported, for a few breaths.');
+    if (has(eq, 'smallball') && has(eq, 'wall')) ideas.push('Small ball against a wall beside the spine or along the inner edge of the shoulder blade, never on the spine itself.');
+    if (has(eq, 'bands')) ideas.push('Band pull-aparts at chest height, slow, 10 times, to wake the muscles between the shoulder blades.');
+    break;
+   case 'ribs':
+    ideas.push('Breathe into the spot: rest a hand on the rib, breathe in slowly so the rib lifts into your hand, then breathe out long and slow. 5 to 10 breaths.');
+    ideas.push(oil + 'fingertip strokes along the line of the rib and in the space between ribs, light and slow, following the rib round rather than pressing into it.');
+    ideas.push('Positional release: find the tender point, then curl, side-bend or turn slightly towards it until it eases by most of the way, and rest there about 90 seconds before slowly returning.');
+    if (has(eq, 'pillow') || has(eq, 'towel')) ideas.push('Side-lying over a ' + (has(eq, 'pillow') ? 'pillow' : 'rolled towel') + ' under the waist, with the sore side uppermost, to gently open the ribs; breathe into the top side.');
+    if (has(eq, 'bands')) ideas.push('Holding a band overhead with both hands, side-bend slowly away from the sore side.');
+    if (has(eq, 'gymball')) ideas.push('Lie sideways over the gym ball, sore side up, supported by your feet, for 3 to 5 breaths.');
+    if (spot.pos === 'back') ideas.push('Near the spine, keep pressure light and never press on the spine itself.');
+    break;
+   case 'chest':
+    ideas.push(oil + 'light circles on the chest muscle and along the edge of the breastbone, never hard.');
+    if (has(eq, 'wall')) ideas.push('Doorway or wall chest stretch, arm at shoulder height, 20 to 30 seconds.');
+    if (loc === 'costal') ideas.push('Diaphragm breathing: hands on the lower ribs, breathe in so the lower ribs widen sideways into your hands.');
+    if (has(eq, 'bands')) ideas.push('Band pull-aparts to balance the chest and upper back.');
+    break;
+   case 'shoulders':
+    ideas.push('Pendulum: lean on a table and let the arm hang and swing in small circles, 30 seconds.');
+    if (has(eq, 'bands')) ideas.push('Light band external rotation, elbow at the side, 10 slow repetitions.');
+    if (has(eq, 'smallball') && has(eq, 'wall')) ideas.push('Small ball against a wall on the back of the shoulder, lean in gently.');
+    ideas.push(oil + 'kneading the top of the shoulder between thumb and fingers.');
+    break;
+   case 'arms': case 'hands':
+    ideas.push(oil + 'long strokes from the hand up towards the elbow and shoulder.');
+    ideas.push('Wrist circles and gentle finger spreading, 10 times.');
+    if (has(eq, 'bands')) ideas.push('Light band work for the wrist or elbow, 10 slow repetitions.');
+    if (has(eq, 'smallball')) ideas.push('Roll the forearm or palm slowly over the small ball on a table.');
+    break;
+   case 'neck':
+    ideas.push('Tiny movements only: small nods (yes) and small turns (no) within comfort, 5 each.');
+    ideas.push('Chin tuck: draw the chin gently back, as if making a double chin, hold 5 seconds, 5 times.');
+    if (has(eq, 'towel')) ideas.push('Lying down with a small rolled towel under the curve of the neck, rest for a minute and breathe.');
+    if (has(eq, 'heat')) ideas.push('A warm heat pack on the back of the neck for 10 minutes.');
+    if (has(eq, 'traction')) ideas.push('Neck traction is not one for home experiments: only use it if a physio or doctor has set it up for you.');
+    ideas.push('No firm pressure on the front or sides of the neck, where important arteries and nerves run.');
+    break;
+   case 'jaw':
+    ideas.push(oil + 'small slow circles on the chewing muscle in the cheek, very light.');
+    ideas.push('Rest the tongue on the roof of the mouth, teeth slightly apart, lips together; then slowly open and close the mouth in a straight line, 5 times (NHS jaw advice).');
+    if (has(eq, 'heat')) ideas.push('A warm flannel or heat pack on the jaw for a few minutes.');
+    break;
+   case 'head':
+    if (loc === 'suboccipital') { ideas.push('Lie on your back and rest the base of the skull in your cupped hands or on two tennis balls in a sock, letting the head\'s weight do the work for one to two minutes. Stop if dizzy.'); ideas.push('Small chin nods, like saying yes very gently, 5 to 10 times.'); }
+    ideas.push('Light fingertip circles on the scalp, moving the skin over the bone rather than pressing.');
+    if (has(eq, 'heat')) ideas.push('Warmth at the base of the skull for 10 minutes.');
+    break;
+   case 'eyes':
+    ideas.push('Never press on the eyeball. Pressure on the eye can slow the heart (the oculocardiac reflex).');
+    ideas.push('Light touch along the bony brow ridge and the temple, tiny circles, very gentle.');
+    ideas.push('Palming: rest warm cupped hands over closed eyes for one minute and breathe slowly.');
+    ideas.push('The base of the skull and the jaw are closely linked to the feelings around the eyes, so easing those first may help more than working near the eye.');
+    break;
+  }
+  return ideas;
+}
+function sensationIdeas(e) {
+  var s = e.sensations || [], q = e.qualities || [], out = [];
+  if (s.indexOf('egg') >= 0) out.push('For the egg or lump: steady, gentle pressure on the edge of it for 30 to 90 seconds rather than rubbing hard, or use positional release. Note whether it changes size.');
+  if (s.indexOf('itch') >= 0) out.push('For itch: light brushing or slow stroking usually settles itch better than firm scratching. Itch and pain travel on related nerve pathways, so a calm, light touch counts.');
+  if (s.indexOf('tight') >= 0 || s.indexOf('pulling') >= 0) out.push('For tightness or pulling: a muscle energy idea. Take the area gently to where you first feel resistance, push against your own hand at about 20 percent effort for 5 to 10 seconds, relax and breathe out, then ease a little further. Repeat 3 times.');
+  if (s.indexOf('clicking') >= 0) out.push('For clicking: move slowly through the comfortable range without forcing. Painless clicks are common and usually harmless.');
+  if (s.indexOf('warmth') >= 0) out.push('For warmth: skip heat on this spot. If it is hot, red, swollen or you feel unwell, check with a doctor before working on it.');
+  if (s.indexOf('numb') >= 0 || s.indexOf('tingling') >= 0) out.push('For numbness or tingling: do not press on this spot. Gentle movement nearby only, and check the safety page if it is new or spreading.');
+  if (q.indexOf('sharp') >= 0 || q.indexOf('burning') >= 0) out.push('Sharp or burning feelings are a sign to go lighter and slower, or to work around the spot rather than on it.');
+  return out;
+}
+function equipmentNotes(eq) {
+  var out = [];
+  if (has(eq, 'oil')) out.push('Massage oil lets your hands glide with less pressure and less skin drag.');
+  if (has(eq, 'traction')) out.push('Traction: lowest force, short sessions, never through pain, tingling or numbness.');
+  if (has(eq, 'bands')) out.push('Resistance bands: start with the lightest band.');
+  if (has(eq, 'gymball')) out.push('Gym ball: keep it near a wall or sofa for balance.');
+  return out;
+}
+
+/* ---------- Analysis engine ---------- */
+var FEEDERS = {
+  SBL: { region: 'feet', loc: 'heel', text: 'the soles of the feet and the calves' },
+  LL: { region: 'lowerlegs', loc: 'outerleg', text: 'the outer lower leg and the outer thigh' },
+  DFL: { region: 'feet', loc: 'arch', text: 'the inner arch, the inner calf and the inner thigh, plus slow diaphragm breathing' },
+  SPL: { region: 'lowerlegs', loc: 'shin', text: 'the shin and the outer hip on the opposite side' },
+  SFL: { region: 'lowerlegs', loc: 'shin', text: 'the front of the shin and the front of the thigh' },
+  BFL: { region: 'hips', loc: 'buttock', text: 'the buttock on the opposite side' },
+  FFL: { region: 'thighs', loc: 'inner', text: 'the inner thigh on the opposite side' },
+  ARM: { region: 'hands', loc: 'palm', text: 'the hand and forearm on the same side' }
+};
+function otherSide(s) { return s === 'L' ? 'R' : s === 'R' ? 'L' : s; }
+function sideCounts(state, spot) {
+  var c = { L: 0, R: 0, C: 0 };
+  openSpots(state).forEach(function (s) { if (Math.abs(REGION_BY_ID[s.region].order - REGION_BY_ID[spot.region].order) <= 1) c[s.side === 'L' || s.side === 'R' ? s.side : 'C']++; });
+  return c;
+}
+function pastApproach(state, spot) {
+  var tally = {}, pool = state.spots.filter(function (s) { return s.region === spot.region; });
+  pool.forEach(function (s) { (s.worked || []).forEach(function (w) {
+    if (!w.result) return; var t = tally[w.approach] = tally[w.approach] || { better: 0, worse: 0, same: 0 };
+    t[w.result] = (t[w.result] || 0) + 1; }); });
+  var best = null, bestScore = 0;
+  Object.keys(tally).forEach(function (k) { var sc = tally[k].better - tally[k].worse; if (sc > bestScore) { bestScore = sc; best = k; } });
+  return best && bestScore >= 2 ? { approach: best, tally: tally[best] } : null;
+}
+var APPROACH_TEXT = { same: 'same side', opposite: 'opposite side first', diagonal: 'diagonal (opposite hip or shoulder)', direct: 'directly on the spot' };
+function chooseSide(state, spot) {
+  var e = latest(spot), why = [], approach;
+  var counts = sideCounts(state, spot);
+  var irritable = (e.intensity || 0) >= 6 || (e.qualities || []).indexOf('sharp') >= 0 || (e.qualities || []).indexOf('burning') >= 0;
+  var lines = spotLines(spot);
+  var own = pastApproach(state, spot);
+  if (spot.side === 'C' || spot.side === 'B') {
+    approach = 'same';
+    why.push('This spot is in the middle or on both sides, so start on whichever side feels less sore, then do the other.');
+  } else if (own) {
+    approach = own.approach;
+    why.push('Your own notes say the ' + APPROACH_TEXT[own.approach] + ' approach has helped here before (' + own.tally.better + ' times better). Your experience counts for more than any general rule.');
+  } else if (e.cluster3 && irritable) {
+    approach = 'opposite';
+    why.push('You noted a cluster of three and it is quite irritable today. Your own rule is that clusters sometimes need unwrapping from the other side. Starting with 2 or 3 minutes of gentle work on the matching area on the ' + sideWord(otherSide(spot.side)) + ' side is a gentle way in: studies of foam rolling found that working one leg also eased tenderness and stiffness in the other leg for a short time, probably through the nervous system.');
+    why.push('Then come back to the ' + sideWord(spot.side) + ' side lightly, working the edges of the cluster before its centre.');
+  } else if (e.cluster3) {
+    approach = 'same';
+    why.push('You noted a cluster of three and it is fairly settled today, so working the same side directly is reasonable. Start at the edges of the three spots and work towards the middle.');
+    why.push('If it does not ease after a few minutes, try your other rule and unwrap from the ' + sideWord(otherSide(spot.side)) + ' side.');
+  } else if (irritable) {
+    approach = 'opposite';
+    why.push('It is quite sore today, so a gentler indirect start on the ' + sideWord(otherSide(spot.side)) + ' side, or around the spot rather than on it, may be kinder.');
+  } else {
+    approach = 'same';
+    why.push('Moderate and not too irritable, so working on the ' + sideWord(spot.side) + ' side directly is a reasonable start.');
+  }
+  if (counts[spot.side] >= 3 && counts[otherSide(spot.side)] === 0 && approach !== 'opposite' && !own) why.push('Most of your open spots around here are on the ' + sideWord(spot.side) + ' side, which fits working that side today.');
+  if ((lines.indexOf('SPL') >= 0 || lines.indexOf('BFL') >= 0 || lines.indexOf('FFL') >= 0) && (spot.side === 'L' || spot.side === 'R')) {
+    var diag = REGION_BY_ID[spot.region].order >= REGION_BY_ID.lowerback.order ? 'hip' : 'shoulder blade';
+    why.push('Diagonal idea: this spot sits on a cross-body line (' + lines.filter(function (x) { return x === 'SPL' || x === 'BFL' || x === 'FFL'; }).map(function (x) { return LINES[x].name.toLowerCase(); }).join(' and ') + '), which links it to the ' + sideWord(otherSide(spot.side)) + ' ' + diag + '. If direct work stalls, try a minute there.');
+  }
+  return { approach: approach, why: why };
+}
+function stepFor(state, spot, eq) {
+  var e = latest(spot), risk = spotRisk(spot), lines = spotLines(spot), side = chooseSide(state, spot);
+  var why = [], care = [];
+  why.push('Priority: intensity ' + (e.intensity || 0) + ' out of 10' + (e.cluster3 ? ', a cluster of three' : '') + (e.worseBreath ? ', worse when breathing' : '') + '.');
+  if (lines.length) why.push('Fascial lines: ' + lines.map(function (x) { return LINES[x].name; }).join(', ') + '. These run through ' + LINES[lines[0]].path + '.');
+  why = why.concat(side.why);
+  if (risk === 3) care.push('This is an extra-gentle area. Light pressure, short time, and stop at the first sign of tingling, numbness, dizziness or sharp pain.');
+  if (risk === 2) care.push('Take-care area: moderate pressure at most, and ease off if it gets sharper.');
+  if ((e.intensity || 0) >= 8) care.push('High intensity today. Consider a shorter, lighter session here, or working nearby instead.');
+  return { kind: 'spot', title: spotName(spot), spotId: spot.id, region: spot.region, risk: risk, approach: side.approach,
+    why: why, ideas: regionIdeas(spot, eq).concat(sensationIdeas(e)), care: care };
+}
+function analyse(state, opts, now) {
+  opts = opts || {};
+  var eq = state.equipment || [], minutes = opts.minutes || 20;
+  var budget = minutes <= 10 ? 3 : minutes <= 20 ? 5 : 8;
+  var open = openSpots(state).filter(function (s) { return !workedToday(s, now); });
+  var ranked = open.slice().sort(function (a, b) { return priority(b, now) - priority(a, now); });
+  var steps = [], notes = [], flags = redFlagHints(state);
+  steps.push({ kind: 'settle', title: 'Settle with slow breathing (about 2 minutes)', risk: 1,
+    why: ['Slow breathing with a long out-breath helps the body relax before hands-on work, and the diaphragm connects to the ribs, the spine and the hip flexors.'],
+    ideas: ['Use the breathing pacer in Tools: breathe in for 4, out for 6, for 10 breaths.'], care: [] });
+  if (!ranked.length) {
+    notes.push(state.spots.length ? 'Everything on your map is resolved or already worked on today. Well done. A gentle all-over session or a rest day both make sense.' : 'Your map is empty. Add a spot in the morning check or the body map, and a plan will appear here.');
+    return { steps: steps, notes: notes, flags: flags, left: [] };
+  }
+  var focus = ranked.slice(0, Math.max(1, budget - 2));
+  // Feeders: lower-risk starting points that share a fascial line, below the focus area (kinetic chain, feet to head)
+  var feederSeen = {}, feeders = [];
+  focus.forEach(function (s) {
+    var lines = spotLines(s), rOrder = REGION_BY_ID[s.region].order;
+    for (var i = 0; i < lines.length; i++) {
+      var f = FEEDERS[lines[i]]; if (!f) continue;
+      if (REGION_BY_ID[f.region].order >= rOrder) continue;
+      if (feederSeen[lines[i]]) continue; feederSeen[lines[i]] = 1;
+      var side = (lines[i] === 'SPL' || lines[i] === 'BFL' || lines[i] === 'FFL') ? otherSide(s.side) : s.side;
+      feeders.push({ kind: 'feeder', title: 'Warm up ' + f.text + (side === 'L' || side === 'R' ? ', ' + sideWord(side) + ' side' : ''), risk: 1, region: f.region, line: lines[i], order: REGION_BY_ID[f.region].order,
+        why: ['Your priority spot "' + spotName(s) + '" sits on the ' + LINES[lines[i]].name.toLowerCase() + ', which runs through ' + LINES[lines[i]].path + '. Working from the ground up along the chain, in a lower-risk area, is a gentle way to prepare. ' + LINES[lines[i]].evidence],
+        ideas: regionIdeas({ region: f.region, loc: f.loc, side: side }, eq).slice(0, 2), care: [] });
+      break;
+    }
+  });
+  feeders.sort(function (a, b) { return a.order - b.order; });
+  var spotSteps = focus.map(function (s) { return stepFor(state, s, eq); });
+  // Order: lower risk first, then feet-to-head within the same risk; extra-gentle areas last
+  spotSteps.sort(function (a, b) { return a.risk - b.risk || REGION_BY_ID[a.region].order - REGION_BY_ID[b.region].order; });
+  var room = budget - 1 - spotSteps.length;
+  steps = steps.concat(feeders.slice(0, Math.max(0, room))).concat(spotSteps);
+  var left = ranked.slice(focus.length);
+  if (left.length) notes.push(left.length + ' more open spot' + (left.length === 1 ? '' : 's') + ' can wait for another session. They stay on your map.');
+  if (spotSteps.some(function (s) { return s.risk === 3; })) notes.push('Higher-care areas (neck, around the eyes, ribs near the spine, the spine itself and the pelvic floor) are placed last, when you are warm and relaxed, and call for the lightest touch.');
+  notes.push('These are best-guess ideas to consider, based on general research and your own notes. They are not a diagnosis and not a guarantee.');
+  return { steps: steps, notes: notes, flags: flags, left: left };
+}
+function redFlagHints(state) {
+  var out = [];
+  openSpots(state).forEach(function (s) {
+    var e = latest(s), sen = e.sensations || [];
+    var legs = ['feet', 'ankles', 'lowerlegs', 'knees', 'thighs'].indexOf(s.region) >= 0;
+    if ((sen.indexOf('numb') >= 0 || sen.indexOf('tingling') >= 0) && (legs || s.region === 'private' || s.region === 'pelvis'))
+      out.push('You have noted numbness or tingling at ' + spotName(s) + '. If it is new, spreading, in both legs, or around the saddle area, please read the safety page and get checked.');
+    if (s.region === 'eyes' && (e.intensity || 0) >= 7) out.push('Strong eye-area pain (' + spotName(s) + '). Sudden eye pain or vision change needs urgent care: see the safety page.');
+    if (s.region === 'chest' && (e.intensity || 0) >= 8 && e.worseBreath) out.push('Severe chest pain with breathing at ' + spotName(s) + '. If it is new or with breathlessness, call 999.');
+  });
+  return out;
+}
+
+/* ---------- Plain-text exports ---------- */
+function mapText(state, now) {
+  var lines = ['Body Care Companion: my body map', 'Exported ' + today(now), ''];
+  var p = progress(state);
+  lines.push('Spots: ' + p.total + ' (open ' + p.open + ', improved ' + p.improved + ', resolved ' + p.resolved + ')', '');
+  REGIONS.forEach(function (r) {
+    var ss = state.spots.filter(function (s) { return s.region === r.id; }); if (!ss.length) return;
+    lines.push('== ' + r.name + ' ==');
+    ss.forEach(function (s) {
+      lines.push('* ' + spotName(s) + ' [' + s.status + ']');
+      s.history.forEach(function (e) { lines.push('  ' + e.date + ': ' + describeEntry(e) + (e.desc ? '. In my words: ' + e.desc : '') + (e.note ? '. Note: ' + e.note : '')); });
+      (s.worked || []).forEach(function (w) { lines.push('  ' + w.date + ': worked on (' + (APPROACH_TEXT[w.approach] || w.approach) + ')' + (w.result ? ', result ' + w.result : '')); });
+    });
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+function physioReport(state, now) {
+  var p = progress(state), out = [];
+  out.push('Self-care notes for my physiotherapist or doctor', 'Prepared with Body Care Companion on ' + today(now) + '. These are my own notes, not a diagnosis.', '');
+  out.push('Summary: ' + p.total + ' areas noted. Open ' + p.open + ', improved ' + p.improved + ', resolved ' + p.resolved + '.');
+  out.push('Total intensity when first noted: ' + p.firstTotal + '. Total now: ' + p.nowTotal + '.', '');
+  var open = sortSpots(openSpots(state), 'priority', now);
+  if (open.length) { out.push('Current areas, highest priority first:'); open.forEach(function (s) { var e = latest(s); out.push('- ' + spotName(s) + ' (' + REGION_BY_ID[s.region].name + '): ' + describeEntry(e) + '. First noted ' + s.created + ', last updated ' + s.updated + '.' + (e.desc ? ' Description: ' + e.desc : '')); }); out.push(''); }
+  if (p.eased.length) { out.push('What has eased:'); p.eased.forEach(function (x) { out.push('- ' + spotName(x.spot) + ': from ' + x.from + ' to ' + x.to + ' out of 10 since ' + x.since + '.'); }); out.push(''); }
+  if (p.worse.length) { out.push('What is worse:'); p.worse.forEach(function (x) { out.push('- ' + spotName(x.spot) + ': from ' + x.from + ' to ' + x.to + ' out of 10.'); }); out.push(''); }
+  out.push('Equipment I use: ' + (state.equipment || []).map(function (id) { return label(EQUIPMENT, id).toLowerCase(); }).join(', ') + '.');
+  out.push('', 'Questions I would like to ask: is my technique safe, and is there anything I should stop or change?');
+  return out.join('\n');
+}
+var BACKUP_HEAD = 'BODY-CARE-COMPANION-BACKUP v1';
+function exportBackup(state, now) {
+  var s = JSON.parse(JSON.stringify(state)); s.exported = today(now);
+  return BACKUP_HEAD + '\nKeep this text safe. To restore, paste all of it into Import in Body Care Companion.\n' + JSON.stringify(s);
+}
+function importBackup(text) {
+  if (typeof text !== 'string') throw new Error('Nothing to import');
+  var i = text.indexOf('{'); if (i < 0) throw new Error('That does not look like a Body Care Companion backup.');
+  var obj; try { obj = JSON.parse(text.slice(i, text.lastIndexOf('}') + 1)); } catch (e) { throw new Error('The backup text is damaged or incomplete. Please copy all of it.'); }
+  if (!obj || obj.app !== 'body-care-companion' || !Array.isArray(obj.spots)) throw new Error('That does not look like a Body Care Companion backup.');
+  var base = emptyState();
+  Object.keys(base).forEach(function (k) { if (obj[k] === undefined) obj[k] = base[k]; });
+  obj.spots = obj.spots.filter(function (s) { return s && REGION_BY_ID[s.region] && Array.isArray(s.history); });
+  obj.spots.forEach(function (s) { s.worked = s.worked || []; s.history = s.history.map(validateEntry); });
+  return obj;
+}
+function mergeStates(cur, inc) {
+  var out = JSON.parse(JSON.stringify(cur)), byId = {};
+  out.spots.forEach(function (s, i) { byId[s.id] = i; });
+  inc.spots.forEach(function (s) {
+    if (byId[s.id] === undefined) out.spots.push(s);
+    else if ((s.updated || '') > (out.spots[byId[s.id]].updated || '')) out.spots[byId[s.id]] = s;
+  });
+  function mergeList(a, b, key) { var seen = {}; a.forEach(function (x) { seen[key(x)] = 1; }); b.forEach(function (x) { if (!seen[key(x)]) a.push(x); }); return a; }
+  out.checkins = mergeList(out.checkins || [], inc.checkins || [], function (c) { return c.date; });
+  out.journal = mergeList(out.journal || [], inc.journal || [], function (j) { return j.date + j.text; });
+  out.bookmarks.reports = mergeList(out.bookmarks.reports, (inc.bookmarks || {}).reports || [], String);
+  out.bookmarks.terms = mergeList(out.bookmarks.terms, (inc.bookmarks || {}).terms || [], String);
+  return out;
+}
+function backupDue(state, now) {
+  if (!state.spots.length && !(state.journal || []).length) return false;
+  if (!state.lastExport) return true;
+  return daysBetween(state.lastExport, today(now)) >= 7 && (state.lastChange || '') > state.lastExport;
+}
+function checkin(state, c, now) {
+  var d = today(now); state.checkins = (state.checkins || []).filter(function (x) { return x.date !== d; });
+  var rec = { date: d, overall: c.overall || '', minutes: c.minutes || 20, sleep: c.sleep || '', note: (c.note || '').slice(0, 2000), flags: !!c.flags };
+  state.checkins.push(rec); state.lastChange = d; return rec;
+}
+function checkTargets(state, now, n) { return sortSpots(openSpots(state), 'priority', now).slice(0, n || 5); }
+
+var api = { LINES: LINES, REGIONS: REGIONS, REGION_BY_ID: REGION_BY_ID, SENSATIONS: SENSATIONS, QUALITIES: QUALITIES, DEPTHS: DEPTHS, SIZES: SIZES, COUNTS: COUNTS,
+  EQUIPMENT: EQUIPMENT, RISK_NAME: RISK_NAME, APPROACH_TEXT: APPROACH_TEXT, label: label, today: today, daysBetween: daysBetween, emptyState: emptyState,
+  spotName: spotName, spotLines: spotLines, spotRisk: spotRisk, latest: latest, first: first, addSpot: addSpot, updateSpot: updateSpot, findSpot: findSpot,
+  quickIntensity: quickIntensity, setStatus: setStatus, markWorked: markWorked, deleteSpot: deleteSpot, openSpots: openSpots, priority: priority, sortSpots: sortSpots,
+  describeEntry: describeEntry, historyByDate: historyByDate, progress: progress, regionIdeas: regionIdeas, sensationIdeas: sensationIdeas, equipmentNotes: equipmentNotes,
+  chooseSide: chooseSide, analyse: analyse, redFlagHints: redFlagHints, mapText: mapText, physioReport: physioReport, exportBackup: exportBackup,
+  importBackup: importBackup, mergeStates: mergeStates, backupDue: backupDue, checkin: checkin, checkTargets: checkTargets, workedToday: workedToday, sideWord: sideWord };
+root.BCC = api;
+if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>/* Research reports. Each: id, title, summary, evidence, sections [{h, p:[...], list:[...]}], sources [[name,url]] */
+window.REPORTS = [
+{ id:'start', title:'How to use these reports', summary:'What the reports are, how they were put together, and how to read the evidence lines.',
+  evidence:'Not applicable: this is a guide to the reports.',
+  sections:[
+   {h:'What these reports are', p:['These reports gather what respected sources say about gentle ways of easing soft-tissue tension, which is what you call unwrapping damage. They were researched on 22 November 2026 from the NHS, Physiopedia, Cleveland Clinic, Mayo Clinic, the Chartered Society of Physiotherapy, research reviews listed on PubMed, Wikipedia, and well-regarded physiotherapy discussions.','They are information, not a diagnosis and not a treatment plan. Nothing here can tell you what is happening inside your body. A physiotherapist who can examine you is the best judge of that.']},
+   {h:'How to read the evidence line', p:['Each report ends its summary with an evidence strength line. Strong means several good-quality studies agree. Moderate means some good studies, with gaps. Limited means small or low-quality studies. Very limited means mostly expert opinion, case reports or theory.','Limited evidence does not mean something cannot help you. It means research has not yet proven it helps most people. Many people find gentle hands-on work pleasant and calming, and that is worth something in itself.']},
+   {h:'A word about language', p:['Your phrase unwrapping damage fits well with how many therapists talk about fascia. Research now suggests that most of the relief comes from the nervous system relaxing and becoming less sensitive, rather than from tissue being physically pulled apart. Both ways of thinking lead to the same practical advice: slow, gentle, patient work, and noticing how your body responds.']}
+  ],
+  sources:[['Physiopedia, Myofascial Pain Evaluation and Treatment','https://www.physio-pedia.com/Myofascial_Pain_Evaluation_and_Treatment'],['The Conversation, What is fascia release (Lewis Ingram, 2026)','https://theconversation.com/what-is-fascia-release-and-do-i-need-to-do-it-a-physiotherapy-expert-unpacks-the-evidence-292606']] },
+
+{ id:'mfr', title:'Myofascial release and self-myofascial release', summary:'Slow, sustained pressure and gliding on muscle and fascia, by a therapist or yourself with hands, balls and rollers.',
+  evidence:'Limited for long-term pain. Moderate for short-term reductions in muscle soreness and short-lived gains in range of movement.',
+  sections:[
+   {h:'What it is', p:['Myofascial release is a hands-on approach where slow, sustained pressure or stretch is applied to muscle and the fascia around it. The idea is to ease restrictions so tissues glide and move more freely. Self-myofascial release means doing a version of it yourself, usually with your hands, a foam roller, a massage ball or a massage stick.','Typical self-work is slow: a roll in one direction takes two to four seconds, and a tender spot is held still under light pressure for 30 to 90 seconds until it softens.']},
+   {h:'What the research says', p:['A 2015 review of controlled trials (Ajimsha and colleagues) found mixed-quality results but described myofascial release as promising. A 2018 review (Laimi and colleagues) looked at chronic musculoskeletal pain and found that the effects on pain and disability were too small to be clinically meaningful, and that most trials had a high risk of bias.','For self-rolling, a 2019 systematic review (Hughes and Ramer) found the most consistent benefit was less muscle soreness, with at least 90 seconds per muscle group. Range of movement improved in about ten of seventeen studies, but only for a short time. A 2020 review by Behm and colleagues suggested 1 to 3 sets of 30 to 120 seconds of slow rolling.']},
+   {h:'How it probably works', p:['Fascia is extremely strong. A 2008 modelling study (Chaudhry and colleagues) estimated that compressing dense fascia, such as the plantar fascia under the foot, by even one percent would need forces of hundreds of kilograms. So rollers and hands almost certainly do not reshape fascia.','Behm and Wilke (2019) concluded that the effects are mostly through the nervous system: pressure receptors calm pain signals, muscles relax, and stretch tolerance increases. Evidence for this includes the finding that rolling one leg can ease the other leg too.']},
+   {h:'Practical tips from physiotherapists', list:['Go slowly and breathe out as you sink into a spot.','Aim for a pressure that feels like a good ache, about 3 to 5 out of 10, never sharp.','Stay off bones, joints, the front of the neck, the armpit, the back of the knee and anywhere numb.','Ninety seconds per area is a good minimum; more is not always better.','Massage oil lets hands glide with less pressure and less skin pulling.','Afterwards, move the area gently so the brain gets the new, easier movement.']},
+   {h:'Community wisdom', p:['On the physiotherapy forum r/physicaltherapy, clinicians often explain that rolling feels good and can reduce pain, but they caution against the idea of breaking up adhesions or scar tissue. The common advice is to use it as a way to feel better and move more, not as a fix in itself.']}
+  ],
+  sources:[['Ajimsha 2015, Effectiveness of myofascial release, PubMed','https://pubmed.ncbi.nlm.nih.gov/25603749/'],['Laimi 2018, Myofascial release in chronic musculoskeletal pain, PubMed','https://pubmed.ncbi.nlm.nih.gov/28956477/'],['Hughes and Ramer 2019, Duration of myofascial rolling, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC6878859/'],['Behm 2020, Foam rolling prescription','https://journals.lww.com/nsca-jscr/fulltext/2020/11000/foam_rolling_prescription__a_clinical_commentary.35.aspx'],['Behm and Wilke 2019, Do self-myofascial release devices release myofascia, PubMed','https://pubmed.ncbi.nlm.nih.gov/31256353/'],['Chaudhry 2008, Deformation of human fasciae in manual therapy, PubMed','https://pubmed.ncbi.nlm.nih.gov/18723456/'],['Mayo Clinic, Myofascial release for back pain','https://www.mayoclinic.org/diseases-conditions/back-pain/expert-answers/myofascial-release/faq-20058136'],['Wikipedia, Myofascial release','https://en.wikipedia.org/wiki/Myofascial_release'],['r/physicaltherapy discussion on rolling','https://www.reddit.com/r/physicaltherapy/comments/83wt9h/whyhow_did_rolling_my_forearm_fix_my_pain/']] },
+
+{ id:'fascia', title:'Fascia basics and the Anatomy Trains idea', summary:'What fascia is, its layers, and the theory that it links the body in long lines.',
+  evidence:'Strong for the anatomy of fascia. Mixed for the Anatomy Trains lines: strong for some lines, partial for others, none for one.',
+  sections:[
+   {h:'What fascia is', p:['Fascia is a web of connective tissue, mostly collagen, that wraps every muscle, bone, nerve, blood vessel and organ. Cleveland Clinic describes it as a sheath of stringy tissue that surrounds every part of the body. Between its layers is a slippery fluid called hyaluronan, which lets the layers glide.','Think of an orange: the pith wraps the whole fruit and also divides it into segments. Fascia does the same for muscles.']},
+   {h:'The layers', list:['Superficial fascia: just under the skin, thicker on the trunk than the limbs.','Deep fascia: around muscles, bones, nerves and vessels. It includes broad sheets such as the thoracolumbar fascia across the low back and the plantar fascia under the foot.','Visceral fascia: around organs, such as the lining of the lungs and heart.','Parietal fascia: lining the walls of body cavities, especially the pelvis.']},
+   {h:'Fascia is full of nerves', p:['Fascia contains a great many sensory nerve endings, which tell the brain where the body is and how it is moving. This may explain why fascia can feel sore, itchy, tight or pulling, and why gentle touch can change how it feels quickly.']},
+   {h:'The Anatomy Trains idea', p:['Thomas Myers proposed that muscles and fascia link into long continuous lines, which he called myofascial meridians or Anatomy Trains. Tension in one place could then be felt or influenced elsewhere along the same line.','A 2016 systematic review of dissection studies (Wilke and colleagues) tested six lines. It found strong evidence for the superficial back line and for the front and back functional lines, partial evidence for the spiral and lateral lines, and no evidence for the superficial front line. The deep front line was not tested.']},
+   {h:'The main lines in plain words', list:['Superficial back line: soles, heels, calves, backs of the thighs, sacrum, the muscles beside the spine, base of the skull, scalp to the brow.','Lateral line: the outside of the foot, leg, hip, waist, ribs and neck.','Spiral line: wraps diagonally round the body, linking one side of the head and upper back to the opposite hip, and down to the arch of the foot.','Deep front line: inner arch, deep calf, inner thigh, pelvic floor, psoas, diaphragm, the front of the spine, up to the jaw.','Functional lines: cross the body, linking one shoulder to the opposite hip, front and back.','Superficial front line: tops of the feet, shins, front of the thighs, belly, breastbone and the side of the neck.']},
+   {h:'What this means for you', p:['The lines are a useful map for deciding where else to look when one spot will not settle. The Body Map in this app uses them for exactly that. But they are a model, not a law, and the cross-body lines are one possible reason a problem on one side can respond to work on the other.']}
+  ],
+  sources:[['Cleveland Clinic, Fascia','https://my.clevelandclinic.org/health/body/23251-fascia'],['StatPearls, Anatomy, Fascia Layers','https://www.ncbi.nlm.nih.gov/books/NBK526038/'],['Wilke 2016, What is evidence-based about myofascial chains, PubMed','https://pubmed.ncbi.nlm.nih.gov/26281953/'],['Krause 2016, Intermuscular force transmission along myofascial chains, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC5341578/'],['Anatomy Trains, about the model','https://www.anatomytrains.com/about-us/'],['Wikipedia, Fascia','https://en.wikipedia.org/wiki/Fascia']] },
+
+{ id:'trigger', title:'Trigger points and knots (your eggs)', summary:'Small, tender, sometimes lumpy spots in muscle that can refer pain elsewhere.',
+  evidence:'Limited and debated. The tender spots are real, but scientists disagree about what they are. Gentle pressure gives short-term relief in small studies.',
+  sections:[
+   {h:'What a trigger point is', p:['Physiopedia describes a trigger point as a hyperirritable spot, a small nodule of 2 to 10 millimetres in a taut band of muscle. Pressing it can cause local tenderness, a twitch, and pain felt somewhere else, called referred pain. Almost everyone has some, even children, and many cause no trouble at all.','Your eggs may well be what therapists call knots or trigger points, though only an examination could say. Other lumps, such as fatty lumps (lipomas), cysts or swollen glands, can feel similar.']},
+   {h:'Active and latent', list:['Active trigger points hurt by themselves and can refer pain.','Latent trigger points only hurt when pressed.','Satellite trigger points can appear in the area where pain is referred from a main one.']},
+   {h:'The debate', p:['In 2015, Quintner, Bove and Cohen published a critical review arguing that trigger points have not been proven to exist as a distinct thing in the muscle, and that the tenderness may come from irritated nerves. Other researchers strongly disagreed. Studies also show that therapists often disagree about where a trigger point is when they feel for it.','The practical point is that tender, lumpy, sometimes referring spots are real experiences, whatever the explanation.']},
+   {h:'Gentle ways of working with them', list:['Sustained pressure, sometimes called ischaemic compression: press lightly into the spot, at a level that is noticeable but not sharp, and hold for 30 to 90 seconds until it softens or the feeling fades.','Positional release: find a position that makes the spot less tender and rest in it, explained in its own report.','Gentle stretching of the muscle afterwards.','Heat before, and gentle movement after.','Mayo Clinic lists exercise, stretching, massage and physiotherapy among the main treatments for myofascial pain syndrome.']},
+   {h:'When a lump needs checking', p:['See a GP about any lump that is growing, hard and fixed, painful for no reason, red and hot, or comes with fever, night sweats or weight loss. Your egg descriptions in the Body Map will help a doctor a great deal.']}
+  ],
+  sources:[['Physiopedia, Trigger Points','https://www.physio-pedia.com/Trigger_Points'],['Quintner 2015, A critical evaluation of the trigger point phenomenon, PubMed','https://pubmed.ncbi.nlm.nih.gov/25477053/'],['Mayo Clinic, Myofascial pain syndrome','https://www.mayoclinic.org/diseases-conditions/myofascial-pain-syndrome/symptoms-causes/syc-20375444'],['Cleveland Clinic, Myofascial pain syndrome','https://my.clevelandclinic.org/health/diseases/12054-myofascial-pain-syndrome'],['Wikipedia, Myofascial trigger point','https://en.wikipedia.org/wiki/Myofascial_trigger_point']] },
+
+{ id:'met', title:'Muscle energy technique, positional release and strain-counterstrain', summary:'Three very gentle techniques you can adapt for yourself: tense-and-relax, and resting in a position of ease.',
+  evidence:'Limited. Low-quality evidence that strain-counterstrain reduces tender-point pain short-term; no convincing evidence that muscle energy technique helps long-term low back pain.',
+  sections:[
+   {h:'Muscle energy technique (MET)', p:['Developed in osteopathy by Fred Mitchell, muscle energy technique asks you to gently contract a muscle against resistance, then relax and ease into a little more range. Physiopedia describes post-isometric relaxation, developed by Karel Lewit, like this:'],
+    list:['Take the tight muscle to where you first feel resistance, just short of pain.','Push away from that point at only 10 to 20 percent effort for 5 to 10 seconds, against your own hand, a wall or a band, breathing in.','Relax and breathe out, then gently take up the new slack.','Repeat 2 or 3 times.']},
+   {h:'Why it might help', p:['The old explanation involved reflexes in the tendons and muscle spindles. Physiopedia now notes that these reflexes alone probably do not explain the effect. More likely, the brain becomes more tolerant of the stretch and pain is turned down.']},
+   {h:'Strain-counterstrain and positional release', p:['Lawrence Jones, an osteopath, discovered in 1955 that a patient in severe pain improved after resting in a position of comfort. Strain-counterstrain uses tender points as a guide. Instead of stretching the sore spot, you shorten and slacken it.'],
+    list:['Find the tender point and rate it, for example as 10.','Keep a finger lightly on it.','Slowly bend, curl, side-bend or turn towards the spot until the tenderness drops by about 70 percent, to 3 out of 10 or less.','Fine-tune with tiny adjustments.','Hold for about 90 seconds while breathing easily.','Return to neutral very slowly, then recheck the point.']},
+   {h:'Why these suit self-care', p:['Both are gentle and you are in control. Positional release in particular is used for people who cannot tolerate firm treatment or when an area is irritable. The 90-second timer in the Tools section is made for this.']},
+   {h:'Evidence', p:['A 2015 Cochrane review (Franke and colleagues) found no convincing evidence that MET helps low back pain, because the trials were small and of low quality. A 2014 meta-analysis (Wong and colleagues) found low-quality evidence that strain-counterstrain reduces tender-point pain compared with controls, in the short term. StatPearls notes the physiology is not fully understood.']}
+  ],
+  sources:[['Physiopedia, Muscle Energy Technique','https://www.physio-pedia.com/Muscle_Energy_Technique'],['StatPearls, Counterstrain and Facilitated Positional Release','https://www.ncbi.nlm.nih.gov/books/NBK562152/'],['Franke 2015, Muscle energy technique for non-specific low-back pain (Cochrane), PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC10945353/'],['Wong 2014, Strain counterstrain meta-analysis, PubMed','https://pubmed.ncbi.nlm.nih.gov/24725782/'],['StatPearls, Physiology, Muscle Energy','https://www.ncbi.nlm.nih.gov/books/NBK559029/']] },
+
+{ id:'ribs', title:'Thoracic spine and ribs: gentle mobilisation', summary:'How the ribs join the spine, why rib spots hurt with breathing, and gentle ways to ease them.',
+  evidence:'Limited. Mobilisation and exercise are commonly used and sensible, but there is little high-quality research on rib joint problems.',
+  sections:[
+   {h:'How the ribs are built', p:['You have 12 pairs of ribs. Ribs 1 to 7 are true ribs, joined directly to the breastbone by their own costal cartilage. Ribs 8 to 10 are false ribs, joined to the cartilage of the rib above. Ribs 11 and 12 are floating ribs, attached only at the back.','At the back, each rib joins the spine at two small joints. The costovertebral joint is where the head of the rib meets the side of the vertebrae. The costotransverse joint is where the rib meets the bony side-wing of the vertebra, called the transverse process. Between each pair of ribs are the intercostal muscles, with a nerve, an artery and a vein running along the lower edge of each rib.']},
+   {h:'Rib joint problems', p:['Physiopedia describes costotransverse and costovertebral problems as often overlooked. Typical features include pain in the upper back to one side, sometimes wrapping round the ribs to the front, pain on deep breathing, coughing or sneezing, and tenderness at the angle of the rib.','A useful note from specialist physiotherapists (IAOM-US): a rib is rarely truly out of place. More often, the joint and the many muscles attached to it become stiff and stop the rib moving through its full range. That is why rib work needs to include the surrounding muscles, and why ribs often need repeated, patient work.']},
+   {h:'How the ribs should move', p:['On a deep breath in, ribs 1 to 5 move forwards and up, like a pump handle, and ribs 6 to 10 swing outwards, like a bucket handle. Feeling which ribs move less on one side is a gentle way to check yourself.']},
+   {h:'Gentle self-care ideas', list:['Breathe into the spot: hand on the sore rib, breathe in so the rib rises into your hand, breathe out slowly. 5 to 10 breaths.','Open book rotation lying on your side, 5 to 10 each way.','Foam roller across the upper back (not the lower back), supporting your head, leaning back for a few breaths.','Side-lying over a pillow or gym ball, sore side up, to open the ribs.','Light, oiled fingertip strokes along the rib and in the spaces between ribs.','Positional release for tender points: curl or side-bend towards the spot until it eases, hold 90 seconds.']},
+   {h:'Cautions', p:['Never press hard on the spine or right beside it. Chest pain with breathlessness, sweating or pain spreading to the arm or jaw is an emergency: call 999. A rib that hurts after a fall should be checked for a fracture.']}
+  ],
+  sources:[['Physiopedia, Costovertebral Joints','https://www.physio-pedia.com/Costovertebral_Joints'],['Physiopedia, Costotransverse Disorders','https://www.physio-pedia.com/Costotransverse_Disorders'],['IAOM-US, Costotransverse and costovertebral joint Q and A','https://iaom-us.com/iaom-us-colleague-q-a-costotransverse-joint-costovertebral-joint-testing-treatment-update'],['Physiopedia, Thoracic Manual Techniques and Exercises','https://www.physio-pedia.com/Thoracic_Manual_Techniques_and_Exercises'],['Cambridge University Hospitals, Thoracic spine exercises','https://www.cuh.nhs.uk/patient-information/thoracic-spine-exercises/'],['Physiopedia, Slipping Rib Syndrome','https://www.physio-pedia.com/Slipping_Rib_Syndrome'],['Wikipedia, Rib cage','https://en.wikipedia.org/wiki/Rib_cage']] },
+
+{ id:'hips', title:'Sacroiliac joint and hips: hip flexors, psoas and piriformis', summary:'The joints where the spine meets the pelvis, and the deep hip muscles that often feel stuck.',
+  evidence:'Limited. Exercise and physiotherapy may help sacroiliac and piriformis pain, but research quality is low.',
+  sections:[
+   {h:'The sacroiliac joints', p:['The sacroiliac joints join the sacrum, the flat triangular bone at the base of the spine, to the two halves of the pelvis. You can often feel them as the dimples low on the back. They move only a few millimetres and are held by very strong ligaments.','Sacroiliac pain is usually felt in the buttock near the dimple, and is often worse with sitting, stairs or standing on one leg. It overlaps with low back and hip problems, which is why a proper examination matters.']},
+   {h:'The psoas and hip flexors', p:['The psoas runs from the sides of the lower spine (T12 to L5), through the pelvis, to the top of the thigh bone. With the iliacus, it forms the iliopsoas, the main hip flexor. It sits next to the diaphragm, which attaches to the same upper lumbar vertebrae, so breathing and the hip flexors are closely linked.']},
+   {h:'The piriformis', p:['The piriformis runs from the sacrum to the top of the thigh bone, deep in the buttock. The sciatic nerve passes right next to it, and sometimes through it. A tight or irritated piriformis can cause buttock pain and pain down the back of the leg, often worse with sitting.']},
+   {h:'Gentle ideas', list:['Knee rocks and pelvic tilts lying on your back.','Gentle muscle energy for the sacroiliac area: press the knees outwards into your hands at 20 percent for 5 seconds, then squeeze a pillow between the knees the same way.','Half-kneeling hip flexor stretch with a slight tailbone tuck.','Positional release for the psoas: lie with knees bent, calves on a gym ball or pillows, letting the knees drift towards the sore side, for 90 seconds.','Figure-four stretch for the piriformis.','A ball between buttock and wall, still pressure on a tender spot, moving off at once if you feel tingling down the leg.','Gym ball sitting with hip circles.']},
+   {h:'Cautions', p:['Numbness or tingling in the saddle area, or changes in bladder or bowel control, need emergency care. Hip pain after a fall, or groin pain that stops you walking, should be checked.']}
+  ],
+  sources:[['Physiopedia, Sacroiliac Joint Syndrome','https://www.physio-pedia.com/Sacroiliac_Joint_Syndrome'],['American Family Physician, Sacroiliac joint dysfunction','https://www.aafp.org/afp/2022/0300/p239'],['Physiopedia, Piriformis Syndrome','https://www.physio-pedia.com/Piriformis_Syndrome'],['StatPearls, Piriformis Syndrome','https://www.ncbi.nlm.nih.gov/books/NBK448172/'],['Physiopedia, Pelvic girdle MET','https://www.physio-pedia.com/Pelvic_Girdle_Dysfunction_Interventions:_Muscle_Energy_Technique'],['Wikipedia, Iliopsoas','https://en.wikipedia.org/wiki/Iliopsoas'],['Wikipedia, Sacroiliac joint','https://en.wikipedia.org/wiki/Sacroiliac_joint']] },
+
+{ id:'feet', title:'Feet and the plantar fascia', summary:'The thick band under the foot, heel pain, and why the feet are a good place to start.',
+  evidence:'Moderate for stretching and self-care in plantar heel pain (plantar fasciitis), based on NHS guidance and trials.',
+  sections:[
+   {h:'The plantar fascia', p:['The plantar fascia is a thick band of tissue running from the heel bone to the base of the toes. It supports the arch like a bowstring. When it is irritated, often called plantar fasciitis, the classic sign is heel pain with the first steps in the morning.']},
+   {h:'NHS self-help advice', list:['Rest the foot when you can and wear supportive, cushioned shoes.','Calf stretch against a wall, back leg straight and heel down, 20 to 30 seconds, 3 times; then repeat with the knee slightly bent.','Plantar fascia stretch: cross the leg and pull the toes back towards the shin, 20 to 30 seconds, 3 times.','Towel stretch: towel round the ball of the foot, knee straight, pull gently.','Roll the arch over a ball for one to two minutes.','See a GP if heel pain has not improved after two weeks of self-care.']},
+   {h:'Why start with the feet', p:['The feet are the base of the superficial back line, the deep front line and the spiral line. They are also a lower-risk area with no major organs or fragile structures. Easing the feet first, in the spirit of working from the ground up, is a gentle warm-up before working higher. Whether foot work truly changes tension higher up is not proven, but a small 2015 pilot trial (Grieve and colleagues, 24 healthy people) found that rolling the soles of both feet on a tennis ball gave an immediate improvement in a sit-and-reach test of hamstring and low back flexibility.']},
+   {h:'Cautions', p:['Numbness, burning or pins and needles in both feet, or a foot that is hot, red and swollen, should be checked by a GP. If you have diabetes, take extra care with the skin of the feet.']}
+  ],
+  sources:[['NHS, Plantar fasciitis','https://www.nhs.uk/conditions/plantar-fasciitis/'],['United Lincolnshire NHS, Plantar fasciitis exercises (PDF)','https://www.ulh.nhs.uk/wp-content/uploads/2025/07/Plantar-fasciitis-Exercises.pdf'],['Grieve 2015, Self myofascial release on the soles of the feet, PubMed','https://pubmed.ncbi.nlm.nih.gov/26118527/'],['Wikipedia, Plantar fascia','https://en.wikipedia.org/wiki/Plantar_fascia']] },
+
+{ id:'head', title:'Around the eyes and head: suboccipitals and jaw, with care', summary:'The small muscles under the skull, the jaw joint, and safe ways to ease feelings behind the eyes.',
+  evidence:'Limited. Jaw exercises and self-care are recommended by the NHS; evidence for suboccipital release is from small studies.',
+  sections:[
+   {h:'The suboccipital muscles', p:['Four small pairs of muscles sit just under the base of the skull, connecting the top two vertebrae (C1 and C2) to the skull. They fine-tune head position and are rich in sensors. Tension here is commonly linked with tension-type headache and with a feeling of pressure behind the eyes.']},
+   {h:'The jaw', p:['The jaw joint sits just in front of the ear. The NHS calls problems here temporomandibular disorder, or TMD. Signs include jaw pain, clicking, headaches and pain around the ear. NHS self-help includes soft food, heat or cold, gently massaging the jaw muscles, not chewing gum, avoiding wide yawning and clenching, and keeping the teeth slightly apart.']},
+   {h:'Gentle ideas', list:['Lie down with the base of the skull resting in your cupped hands, or on two tennis balls in a sock, for one to two minutes. Stop if dizzy.','Small chin nods and chin tucks.','Light circles on the chewing muscle in the cheek.','Tongue resting on the roof of the mouth, teeth apart, slow straight opening and closing.','Palming: warm cupped hands over closed eyes.','Light fingertip circles on the brow bone and temples.']},
+   {h:'Important cautions for the eyes', p:['Never press on the eyeball. Pressure on the eye can trigger the oculocardiac reflex, which slows the heart and can cause fainting. Work on the bony rim, the brow, the temples, the jaw and the base of the skull instead.','The NHS says sudden loss of vision, or sudden severe eye pain, needs A and E or 999 straight away.']},
+   {h:'The neck', p:['The front and sides of the neck carry major arteries and nerves. No firm pressure there, no forceful twisting or cracking of the neck, and no home neck traction unless a physio or doctor has set it up.']}
+  ],
+  sources:[['NHS, Temporomandibular disorder','https://www.nhs.uk/conditions/temporomandibular-disorder-tmd/'],['Worcestershire Acute Hospitals NHS, TMJ pain physiotherapy','https://www.worcsacute.nhs.uk/leaflets/temporomandibular-joint-tmj-pain-physiotherapy-management/'],['Physiopedia, Temporomandibular Disorders','https://www.physio-pedia.com/Temporomandibular_Disorders'],['NHS, Eye pain','https://www.nhs.uk/symptoms/eye-pain/'],['EyeWiki, Oculocardiac reflex','https://eyewiki.aao.org/Oculocardiac_Reflex'],['Wikipedia, Suboccipital muscles','https://en.wikipedia.org/wiki/Suboccipital_muscles']] },
+
+{ id:'pelvic', title:'The pelvic floor', summary:'A short, neutral guide to the muscles at the base of the pelvis and how they link with breathing and the hips.',
+  evidence:'Moderate for pelvic floor physiotherapy in general; limited for self-release work.',
+  sections:[
+   {h:'What the pelvic floor is', p:['The pelvic floor is a dome-shaped sheet of muscle and fascia across the base of the pelvis, from the pubic bone at the front to the tailbone at the back. It supports the bladder and bowel, helps with continence, and plays a part in sexual function. Everyone has one.']},
+   {h:'How it links to the rest of the body', p:['The pelvic floor works as a pair with the diaphragm. When you breathe in, the diaphragm moves down and the pelvic floor gently lowers; when you breathe out, both rise. It also links with the inner thigh muscles, the deep hip muscles and the low back. In the Anatomy Trains model, it is part of the deep front line.']},
+   {h:'Gentle, external ideas', list:['Relaxed breathing: on the in-breath, let the pelvic floor soften and drop; on the out-breath, let it rise gently.','Warmth over clothing.','Easing the inner thighs, hips and diaphragm first.','Gentle pelvic tilts and small circles on a gym ball.']},
+   {h:'When to get specialist help', p:['Pelvic health physiotherapists specialise in this area, for all sexes, and can assess things that self-care cannot. Numbness in the saddle area, or new problems with bladder or bowel control, need emergency care.']}
+  ],
+  sources:[['Physiopedia, Pelvic Floor Anatomy','https://www.physio-pedia.com/Pelvic_Floor_Anatomy'],['Physiopedia, Low Back Pain and Pelvic Floor Disorders','https://www.physio-pedia.com/Low_Back_Pain_and_Pelvic_Floor_Disorders'],['Wikipedia, Pelvic floor','https://en.wikipedia.org/wiki/Pelvic_floor']] },
+
+{ id:'breath', title:'Breathing and the diaphragm', summary:'The main breathing muscle, its links to the ribs, spine and hips, and a simple breathing practice.',
+  evidence:'Moderate for diaphragmatic breathing to aid relaxation; limited for direct effects on musculoskeletal pain.',
+  sections:[
+   {h:'The diaphragm', p:['The diaphragm is a dome of muscle under the lungs. It attaches to the bottom of the breastbone, the inside of ribs 7 to 12, and the front of the upper lumbar vertebrae, where it sits next to the psoas. When it contracts, it flattens and pulls air in.']},
+   {h:'Why it matters for your work', p:['Because it attaches to the lower ribs and spine, tension or shallow breathing can be felt in the ribs, back and belly. A slow breath out also calms the nervous system, which is likely to make all other gentle work more effective.']},
+   {h:'A simple practice', list:['Lie on your back with knees bent, or sit comfortably.','One hand on the chest, one on the belly or lower ribs.','Breathe in slowly through the nose so the belly and lower ribs widen, while the chest stays fairly still.','Breathe out gently and slowly, a little longer than the in-breath.','Physiopedia suggests 5 to 10 minutes, several times a day.','The breathing pacer in Tools uses in for 4, out for 6.']},
+   {h:'Cautions', p:['Stop if you feel dizzy or tingly in the fingers, which means you are breathing too much. New breathlessness or chest pain needs urgent help.']}
+  ],
+  sources:[['Physiopedia, Diaphragmatic Breathing Exercises','https://www.physio-pedia.com/Diaphragmatic_Breathing_Exercises'],['Physiopedia, How We Breathe','https://www.physio-pedia.com/How_We_Breathe'],['Wikipedia, Thoracic diaphragm','https://en.wikipedia.org/wiki/Thoracic_diaphragm']] },
+
+{ id:'referred', title:'Referred pain, and why pain can show up on the other side', summary:'How the nervous system can place pain away from its source, and what is known about mirror-image pain.',
+  evidence:'Strong that referred pain exists. Moderate that one-sided problems can cause smaller changes on the other side. Limited for using this to guide treatment.',
+  sections:[
+   {h:'Referred pain', p:['Referred pain is pain felt in a different place from its source. Nerves from different areas, for example a muscle and the skin above it, or an organ and the chest wall, meet at the same nerve cells in the spinal cord. The brain cannot always tell which one is signalling, so it may place the pain in the wrong spot. A classic example is heart pain felt in the left arm or jaw.','Trigger points also refer pain in typical patterns, for example from the upper shoulder to the side of the head.']},
+   {h:'Dermatomes: the skin map', p:['Each spinal nerve supplies a band of skin called a dermatome. Around the trunk these bands run round the body like hoops following the ribs. The band at nipple level is roughly T4 and at the belly button roughly T10. This is why a problem near the spine at one level can be felt round the side or at the front at the same level, along the rib.']},
+   {h:'Mirror-image and opposite-side pain', p:['Researchers have found that a problem on one side of the body can cause smaller, shorter-lived changes in sensitivity on the opposite side, called mirror-image pain or contralateral sensitisation. It is thought to happen through crossing connections in the spinal cord.','Treatment studies show the reverse too: rolling the calf on one leg raised the pain threshold of a tender spot on the other leg (Aboodarda 2015), and foam rolling one leg improved ankle movement in the other leg for around ten minutes (Kelly and Beardsley 2016).']},
+   {h:'What this means for your three-spot rule', p:['Your observation that some clusters respond to working the same side, and some to working from the other side, fits with this research. Working the opposite side is a gentle, indirect way in, especially when a spot is too sore to touch. The cross-body fascial lines (spiral and functional lines) offer another reason to try the opposite hip or shoulder. Your own notes in the Body Map will show which works best for you, and the analysis engine learns from them.']}
+  ],
+  sources:[['Wikipedia, Referred pain','https://en.wikipedia.org/wiki/Referred_pain'],['Shenker 2003, Contralateral responses to a unilateral inflammatory lesion','https://doi.org/10.1093/rheumatology/keg397'],['Aboodarda 2015, Local and non-local rolling massage, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC4587678/'],['Kelly and Beardsley 2016, Cross-over effects of foam rolling, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC4970845/'],['Kenhub, Dermatomes','https://www.kenhub.com/en/library/anatomy/dermatomes']] },
+
+{ id:'itch', title:'Itch and pain as nerve signals', summary:'Why sore spots can itch, and why light touch can calm both.',
+  evidence:'Strong for the basic science of itch and pain pathways; limited for applying it to self-care.',
+  sections:[
+   {h:'Two related alarm systems', p:['Itch and pain travel on related but separate nerve pathways. Some nerve fibres respond mainly to itch, others to pain, and they meet in the spinal cord, where they influence each other. Pain signals tend to switch off itch, which is why scratching briefly relieves an itch.']},
+   {h:'Why a sore spot might itch', p:['When a tissue is irritated or healing, or when the nerves around it are sensitised, the signal may come through as itch rather than pain, or switch between them. Your experience of the same rib indentation sometimes itching and sometimes hurting fits with this. Neither feeling on its own tells you how much damage there is.']},
+   {h:'Calming ideas', list:['Light, slow stroking or brushing over the area.','Gentle pressure held still, rather than scratching.','Cool rather than hot, if the itch is strong.','Keeping skin moisturised; massage oil helps here too.']},
+   {h:'When itch needs a doctor', p:['Itch all over the body without a rash, itch with yellowing skin or weight loss, or a rash that spreads or blisters, should be checked by a GP.']}
+  ],
+  sources:[['Review 2010, The multiple pathways for itch and their interactions with pain, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC2991051/'],['Peripheral and central mechanisms of itch, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC6022762/'],['Wikipedia, Itch','https://en.wikipedia.org/wiki/Itch']] },
+
+{ id:'evidence', title:'What the evidence does and does not support', summary:'An honest summary of what gentle self-work can and cannot do.',
+  evidence:'Summary of the reports above.',
+  sections:[
+   {h:'Reasonably well supported', list:['Staying active and doing gentle exercise helps most back pain; the CSP says most back pain improves within 6 to 8 weeks.','Self-rolling and massage reduce muscle soreness for a short time.','Stretching and calf work help heel pain.','Slow breathing helps relaxation.','Jaw self-care helps many people with TMD.']},
+   {h:'Possible, with limited evidence', list:['Myofascial release for long-term pain.','Trigger point pressure.','Muscle energy technique and strain-counterstrain.','Working one side to ease the other.','Using fascial lines to choose where to work.']},
+   {h:'Not supported', list:['Breaking up adhesions or scar tissue with rollers or hands. The forces needed are far too large.','Hydrating or training fascia on its own, separately from muscle.','Putting bones back in place yourself. Joints usually move less rather than sit in the wrong place, and only a clinician can tell.']},
+   {h:'Why gentle work can still help', p:['Relief from touch is real even when the explanation is about the nervous system rather than the tissue. Gentle work, relaxation, feeling in control, and a careful record of what helps all count. The Body Map is designed to build up that record.']}
+  ],
+  sources:[['Chartered Society of Physiotherapy, Managing your back pain','https://www.csp.org.uk/conditions/managing-pain-home/managing-your-back-pain'],['Chartered Society of Physiotherapy, Video exercises for back pain','https://www.csp.org.uk/conditions/back-pain/video-exercises-back-pain'],['NHS, Back pain','https://www.nhs.uk/conditions/back-pain/'],['Behm and Wilke 2019, PubMed','https://pubmed.ncbi.nlm.nih.gov/31256353/'],['The Conversation, What is fascia release','https://theconversation.com/what-is-fascia-release-and-do-i-need-to-do-it-a-physiotherapy-expert-unpacks-the-evidence-292606']] },
+
+{ id:'limits', title:'What self-work cannot move: fused vertebrae and other limits', summary:'Realistic notes on bony changes, slipped vertebrae and joints that no amount of soft-tissue work will shift.',
+  evidence:'Strong: these are well-established medical facts.',
+  sections:[
+   {h:'Fused vertebrae', p:['Vertebrae can be joined together in several ways: from birth (a block vertebra), by bone growing across the joints in conditions such as ankylosing spondylitis, or by surgery. Once bone has fused, no hands-on technique can separate it. The NHS notes that in ankylosing spondylitis the spine can fuse over time as new bone grows, and that treatment is mainly exercise, physiotherapy and medicine.','If you feel that some vertebrae will not move together, that may be stiffness in the joints and muscles, which can improve, or a bony change, which cannot. Only a scan can tell the difference.']},
+   {h:'Vertebrae too far apart', p:['A vertebra that has slipped forward on the one below is called spondylolisthesis. The NHS says it is often managed with exercise and physiotherapy, and sometimes surgery. Self-traction or forceful movement could make it worse, so it is worth asking a physio before using traction on the lower back if this might apply to you.']},
+   {h:'Bones in the wrong place', p:['A true dislocation or subluxation of a joint is usually painful and obvious, and needs medical care. More often, a joint that feels out of place is moving less than it should, held by stiff tissue and protective muscle tension. This is the part that gentle work may help.']},
+   {h:'What you can still change', list:['Muscle tension and protective guarding.','Nervous system sensitivity.','Movement around a stiff area, including the joints above and below.','Breathing, posture habits and strength.']},
+   {h:'A good next step', p:['If you have never had imaging of your spine, it may be worth asking your GP or a physiotherapist whether an X-ray or MRI would help you know which areas can change and which cannot. That would make your self-work more targeted.']}
+  ],
+  sources:[['NHS, Ankylosing spondylitis','https://www.nhs.uk/conditions/ankylosing-spondylitis/'],['NHS, Spondylolisthesis','https://www.nhs.uk/conditions/spondylolisthesis/'],['IAOM-US, Is a rib ever out of place','https://iaom-us.com/iaom-us-colleague-q-a-costotransverse-joint-costovertebral-joint-testing-treatment-update'],['Wikipedia, Ankylosis','https://en.wikipedia.org/wiki/Ankylosis']] },
+
+{ id:'equipment', title:'Using your equipment gently', summary:'Massage oil, traction, resistance bands, a gym ball and more: how to use each safely.',
+  evidence:'Limited: practical guidance from physiotherapy sources and general principles.',
+  sections:[
+   {h:'Massage oil', p:['Oil reduces friction so your hands glide with less pressure and less skin drag. It is ideal for long, slow strokes along muscles and between ribs. Use a plain oil, test a small patch first for skin reactions, and keep it away from the eyes and private areas.']},
+   {h:'Traction', p:['Traction gently pulls joints apart. Research on home traction for back pain is weak, and it is not right for everyone, for example with a slipped vertebra, osteoporosis or after spinal surgery. If you use it: lowest force, short sessions of one to two minutes, never through pain, and stop at once with tingling, numbness or dizziness. Neck traction should only be used if a clinician has set it up.']},
+   {h:'Resistance bands', p:['Bands are useful for assisted stretches, for gentle muscle energy work (pushing gently against the band), and for light strengthening such as pull-aparts and clamshells. Start with the lightest band and check it for nicks before use.']},
+   {h:'Gym ball', p:['A gym ball is good for pelvic tilts and hip circles while sitting, for draping the chest over to round the back, for lying back over to open the chest and upper back, and for resting the calves on during positional release for the hips. Keep it near a wall or sofa for balance.']},
+   {h:'Foam roller and small balls', p:['Rollers suit big muscles: calves, thighs, buttocks and upper back. Small balls reach smaller spots such as the sole, the buttock and around the shoulder blade. Never roll on the spine itself, the lower back, the front of the neck, or over bony points.']}
+  ],
+  sources:[['Physiopedia, Shoulder self-management techniques','https://www.physio-pedia.com/Shoulder_Mobilisation_and_Self-Management_Techniques'],['NHS, Back pain','https://www.nhs.uk/conditions/back-pain/'],['Hughes and Ramer 2019, PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC6878859/']] }
+];
+</script>
+<script>/* Glossary: [term, plain-English meaning, category] */
+(function(){
+var G = [
+['Abdominals','The belly muscles. They help hold the trunk steady and work with the diaphragm when you breathe.','Muscles'],
+['Achilles tendon','The thick cord at the back of the ankle joining the calf muscles to the heel bone.','Anatomy'],
+['Active trigger point','A tender knot that hurts on its own and can send pain somewhere else.','Soft tissue'],
+['Acute','Recent or sudden, usually less than about six weeks. The opposite of chronic.','Medical words'],
+['Adductors','The inner thigh muscles. They pull the legs together.','Muscles'],
+['Adhesion','Tissue that has stuck together, for example after surgery. Hands and rollers cannot break true adhesions; the forces needed are far too large.','Soft tissue'],
+['Anatomy Trains','Thomas Myers\'s model of long lines of muscle and fascia that link distant parts of the body.','Fascia'],
+['Ankylosing spondylitis','A long-term inflammatory condition, mostly of the spine, where vertebrae can slowly fuse together.','Conditions'],
+['Ankylosis','Stiffening and fusion of a joint so that it cannot move. Fused bone cannot be moved by soft-tissue work.','Conditions'],
+['Anterior','At or towards the front of the body.','Directions'],
+['Aponeurosis','A broad, flat sheet of tough fascia that attaches a muscle, like a flat tendon.','Fascia'],
+['Atlas','The top vertebra of the neck, C1, which holds up the skull. Named after the giant who held up the world.','Spine'],
+['Axis','The second neck vertebra, C2. It has a peg that the atlas turns around when you shake your head.','Spine'],
+['Bilateral','On both sides of the body.','Directions'],
+['Block vertebra','Two vertebrae joined together from birth.','Spine'],
+['Bucket-handle movement','How the lower ribs (about 6 to 10) swing outwards to the sides when you breathe in.','Ribs'],
+['Bursa','A small fluid-filled cushion that reduces rubbing between tendon and bone. When irritated it is called bursitis.','Anatomy'],
+['Cauda equina','The bundle of nerve roots at the bottom of the spinal canal, below about L1. Pressure on it is an emergency.','Spine'],
+['Cauda equina syndrome','A medical emergency where the nerves at the bottom of the spine are squashed. Signs include saddle numbness and bladder or bowel changes. Call 999.','Conditions'],
+['Central sensitisation','When the spinal cord and brain become more sensitive, so pain is felt more easily and spreads, even after tissues have healed.','Nerves and pain'],
+['Cervical','To do with the neck. The cervical spine is the seven neck vertebrae, C1 to C7.','Spine'],
+['Chronic','Long-lasting, usually more than three months.','Medical words'],
+['Coccyx','The tailbone, the small bone at the very bottom of the spine.','Spine'],
+['Collagen','A strong protein fibre that makes up most of fascia, tendons, ligaments and skin.','Fascia'],
+['Contralateral','On the opposite side of the body.','Directions'],
+['Contralateral sensitisation','When a problem on one side makes the matching area on the other side more sensitive too. Also called mirror-image pain.','Nerves and pain'],
+['Costal','To do with the ribs.','Ribs'],
+['Costal cartilage','The bendy cartilage that joins the front of the ribs to the breastbone.','Ribs'],
+['Costochondral joint','Where a rib bone meets its costal cartilage at the front.','Ribs'],
+['Costochondritis','Inflammation where the ribs join the breastbone, causing chest wall pain.','Conditions'],
+['Costotransverse joint','The small joint at the back where a rib meets the side-wing (transverse process) of a thoracic vertebra.','Ribs'],
+['Costovertebral joint','The small joint at the back where the head of a rib meets the side of the vertebrae.','Ribs'],
+['Deep fascia','The tough fascia around muscles, bones, nerves and blood vessels.','Fascia'],
+['Deep front line','An Anatomy Trains line running from the inner arch, up the inner leg, through the pelvic floor, psoas and diaphragm, to the jaw.','Fascia'],
+['Dermatome','The band of skin supplied by one spinal nerve. Around the trunk the bands run like hoops following the ribs.','Nerves and pain'],
+['Diaphragm','The dome-shaped main breathing muscle under the lungs. It attaches to the lower ribs, breastbone and upper lumbar spine.','Muscles'],
+['Disc','The rubbery cushion between two vertebrae. Its full name is intervertebral disc.','Spine'],
+['Distal','Further from the centre of the body. The hand is distal to the elbow.','Directions'],
+['Dorsal','Towards the back. Also the top of the foot or the back of the hand.','Directions'],
+['Dorsiflexion','Pulling the foot or toes up towards the shin.','Movement'],
+['Dry needling','A clinic treatment where a thin needle is put into a trigger point. Not something to do yourself.','Treatments'],
+['End feel','What a joint feels like at the end of its movement: springy, firm or hard.','Movement'],
+['Erector spinae','The long muscles running either side of the spine from the pelvis to the skull.','Muscles'],
+['Evidence strength','How much good research supports an idea. Strong, moderate, limited or very limited.','Research words'],
+['Extension','Straightening or bending backwards.','Movement'],
+['Facet joint','The small paired joints at the back of each vertebra that guide how the spine bends and twists.','Spine'],
+['False ribs','Ribs 8, 9 and 10. They join the breastbone indirectly, through the cartilage of the rib above.','Ribs'],
+['Fascia','A web of connective tissue, mostly collagen, that wraps every muscle, bone, nerve and organ.','Fascia'],
+['Fascia lata','The strong fascia around the thigh. Its thickened outer band is the IT band.','Fascia'],
+['Fibrosis','Thickening and scarring of tissue.','Soft tissue'],
+['Flexion','Bending forwards, or bending a joint.','Movement'],
+['Floating ribs','Ribs 11 and 12. They attach to the spine at the back but not to the breastbone at the front.','Ribs'],
+['Foam rolling','Rolling a muscle slowly over a foam cylinder using body weight.','Treatments'],
+['Front functional line','An Anatomy Trains line linking the chest muscle on one side to the inner thigh on the other side.','Fascia'],
+['Back functional line','An Anatomy Trains line linking the large back muscle on one side, across the low back, to the buttock and thigh on the other side.','Fascia'],
+['Gluteals','The buttock muscles: gluteus maximus, medius and minimus.','Muscles'],
+['Golgi tendon organ','A sensor where muscle meets tendon that senses tension and can make a muscle relax.','Nerves and pain'],
+['Hamstrings','The three muscles at the back of the thigh.','Muscles'],
+['Hip flexors','Muscles at the front of the hip that lift the knee, mainly the iliopsoas.','Muscles'],
+['Hyaluronan','A slippery fluid between layers of fascia that lets them glide. Also called hyaluronic acid.','Fascia'],
+['Hypermobility','Joints that move further than usual.','Movement'],
+['Iliac crest','The curved top edge of the hip bone, where you rest your hands on your hips.','Anatomy'],
+['Iliopsoas','The main hip flexor, made of the psoas and the iliacus.','Muscles'],
+['Inferior','Below, or lower down.','Directions'],
+['Inflammation','The body\'s healing response: heat, redness, swelling and pain.','Medical words'],
+['Intercostal','Between the ribs.','Ribs'],
+['Intercostal muscles','The thin muscles between the ribs that help breathing.','Ribs'],
+['Intercostal nerve','The nerve that runs along the lower edge of each rib, from the spine round to the front.','Ribs'],
+['Intercostal space','The gap between two neighbouring ribs, filled by the intercostal muscles. There are 11 on each side.','Ribs'],
+['Ipsilateral','On the same side of the body.','Directions'],
+['Ischaemic compression','Pressing steadily on a trigger point for 30 to 90 seconds until it softens.','Treatments'],
+['IT band','The iliotibial band, a thick strip of fascia down the outside of the thigh from hip to knee.','Fascia'],
+['Kinetic chain','The idea that joints and muscles work as a linked chain, so a problem at the foot can affect the knee, hip and back.','Movement'],
+['Kyphosis','The natural outward curve of the upper back. Too much is a rounded back.','Spine'],
+['Lateral','Towards the outside, away from the middle of the body.','Directions'],
+['Lateral line','An Anatomy Trains line running down the outside of the body from the ear to the outer foot.','Fascia'],
+['Latent trigger point','A knot that is only sore when pressed.','Soft tissue'],
+['Latissimus dorsi','The large, flat back muscle from the low back to the upper arm.','Muscles'],
+['Levator ani','The main group of pelvic floor muscles.','Muscles'],
+['Ligament','A tough band joining bone to bone.','Anatomy'],
+['Lipoma','A soft, harmless fatty lump under the skin. Worth showing a GP if it grows or hurts.','Conditions'],
+['Lordosis','The natural inward curve of the neck and lower back.','Spine'],
+['Lumbar','To do with the lower back. The lumbar spine is five vertebrae, L1 to L5.','Spine'],
+['Manubrium','The top part of the breastbone, where the collarbones and first ribs join.','Anatomy'],
+['Masseter','The strong chewing muscle in the cheek.','Muscles'],
+['Medial','Towards the middle of the body.','Directions'],
+['Mirror-image pain','Pain or sensitivity felt in the matching place on the opposite side of the body.','Nerves and pain'],
+['Mobilisation','Gentle, repeated movement of a joint to ease stiffness.','Treatments'],
+['Muscle energy technique','Gently tensing a muscle against resistance for a few seconds, then relaxing and easing into a little more range.','Treatments'],
+['Muscle spindle','A stretch sensor inside a muscle.','Nerves and pain'],
+['Myofascial','To do with muscle and the fascia around it.','Fascia'],
+['Myofascial pain syndrome','Ongoing muscle pain linked to tender trigger points.','Conditions'],
+['Myofascial release','Slow, sustained pressure or stretch on muscle and fascia to ease tension.','Treatments'],
+['Nerve root','Where a nerve leaves the spinal cord between two vertebrae.','Nerves and pain'],
+['Neuropathic pain','Pain from irritated or damaged nerves. Often burning, shooting or with pins and needles.','Nerves and pain'],
+['Nociceptor','A nerve ending that detects possible harm and sends danger signals.','Nerves and pain'],
+['Oculocardiac reflex','A reflex where pressure on the eye slows the heart. The reason never to press on the eyeball.','Nerves and pain'],
+['Osteopathy','A manual therapy profession. Muscle energy technique and strain-counterstrain came from osteopaths.','Treatments'],
+['Palpation','Feeling the body with the hands to find tension, tenderness or lumps.','Medical words'],
+['Paraspinal','Beside the spine.','Directions'],
+['Parietal fascia','Fascia lining the walls of body cavities, especially the pelvis.','Fascia'],
+['Pectoralis','The chest muscles, major and minor.','Muscles'],
+['Pelvic floor','A sheet of muscle and fascia across the bottom of the pelvis that supports the bladder and bowel.','Anatomy'],
+['Piriformis','A deep buttock muscle from the sacrum to the thigh bone, next to the sciatic nerve.','Muscles'],
+['Plantar','To do with the sole of the foot.','Directions'],
+['Plantar fascia','The thick band under the foot from heel to toes that supports the arch.','Fascia'],
+['Plantar fasciitis','Irritation of the plantar fascia, causing heel pain, worst on first steps in the morning.','Conditions'],
+['Positional release','Resting a tender area in its most comfortable, slackened position for about 90 seconds. Also called strain-counterstrain.','Treatments'],
+['Post-isometric relaxation','A muscle energy method: tense gently for 5 to 10 seconds, then relax and stretch a little further.','Treatments'],
+['Posterior','At or towards the back of the body.','Directions'],
+['Proprioception','Your sense of where your body is and how it is moving, without looking.','Nerves and pain'],
+['Proximal','Nearer the centre of the body. The knee is proximal to the ankle.','Directions'],
+['Psoas','A deep muscle from the sides of the lower spine to the top of the thigh bone. It sits next to the diaphragm.','Muscles'],
+['Pump-handle movement','How the upper ribs (about 1 to 5) lift forwards and up when you breathe in.','Ribs'],
+['Quadratus lumborum','A deep muscle at the side of the waist, between the lowest rib and the top of the hip bone.','Muscles'],
+['Quadriceps','The four muscles at the front of the thigh.','Muscles'],
+['Radiating pain','Pain that spreads out from a source along a path, such as down a leg.','Nerves and pain'],
+['Range of movement','How far a joint can move. Often shortened to ROM.','Movement'],
+['Reciprocal inhibition','When one muscle tightens, its opposite muscle relaxes.','Nerves and pain'],
+['Red flag','A warning sign that needs a doctor quickly.','Medical words'],
+['Referred pain','Pain felt in a different place from where the problem is.','Nerves and pain'],
+['Rhomboids','Muscles between the shoulder blades and the spine.','Muscles'],
+['Rotation','Twisting or turning.','Movement'],
+['Sacroiliac joint','The joint between the sacrum and the pelvis on each side, near the dimples of the low back.','Anatomy'],
+['Sacrum','The flat triangle-shaped bone at the base of the spine, made of five fused vertebrae.','Spine'],
+['Saddle numbness','Numbness around the genitals, back passage and inner buttocks, where you would sit on a saddle. An emergency sign.','Medical words'],
+['Scapula','The shoulder blade.','Anatomy'],
+['Sciatic nerve','The largest nerve in the body, from the lower back down the back of each leg.','Nerves and pain'],
+['Sciatica','Pain, tingling or numbness along the sciatic nerve, down the back of the leg.','Conditions'],
+['Scoliosis','A sideways curve of the spine.','Conditions'],
+['Self-myofascial release','Doing myofascial release on yourself with hands, balls or rollers.','Treatments'],
+['Side bending','Bending sideways. Also called lateral flexion.','Movement'],
+['Somatic dysfunction','An osteopathic term for a part of the body that moves less well or is tender.','Medical words'],
+['Spinal canal','The tunnel through the vertebrae that holds the spinal cord and nerves.','Spine'],
+['Spinous process','The bony bump you can feel down the middle of your back on each vertebra.','Spine'],
+['Spiral line','An Anatomy Trains line that wraps diagonally round the body, linking one side of the head to the opposite hip and foot.','Fascia'],
+['Spondylolisthesis','When one vertebra slips forwards on the one below.','Conditions'],
+['Spondylosis','Wear-and-tear changes in the spine that come with age.','Conditions'],
+['Sternum','The breastbone, in the middle of the chest.','Anatomy'],
+['Strain-counterstrain','Finding a tender point, then resting in a position that makes it at least 70 percent less tender, for about 90 seconds.','Treatments'],
+['Subluxation','A partial dislocation, where a joint\'s surfaces have partly slipped. In chiropractic use the word can mean something looser.','Conditions'],
+['Suboccipital muscles','Four small pairs of muscles under the base of the skull. Often linked with headaches and pressure behind the eyes.','Muscles'],
+['Superficial back line','An Anatomy Trains line from the soles of the feet, up the back of the body, over the head to the brow. The best-supported line.','Fascia'],
+['Superficial fascia','The layer of fascia just under the skin.','Fascia'],
+['Superficial front line','An Anatomy Trains line from the tops of the feet up the front of the body to the side of the neck. Not supported by dissection studies.','Fascia'],
+['Superior','Above, or higher up.','Directions'],
+['Systematic review','A study that gathers and weighs all the good research on one question.','Research words'],
+['Taut band','A tight strip within a muscle that can be felt, often containing a trigger point.','Soft tissue'],
+['Temporomandibular joint','The jaw joint, just in front of each ear. Often shortened to TMJ.','Anatomy'],
+['Tendon','A tough cord joining muscle to bone.','Anatomy'],
+['Tensor fasciae latae','A small muscle at the outer front of the hip that tightens the IT band.','Muscles'],
+['Thoracic','To do with the chest and upper back. The thoracic spine is twelve vertebrae, T1 to T12, each with a pair of ribs.','Spine'],
+['Thoracolumbar fascia','A large diamond of tough fascia across the lower and middle back.','Fascia'],
+['Thixotropy','When a gel becomes more fluid with movement or warmth. One idea for why tissue feels looser after rolling.','Fascia'],
+['Traction','A gentle pulling force to separate joints slightly.','Treatments'],
+['Transverse process','The bony side-wings on each vertebra, where muscles attach. In the thoracic spine the ribs rest against them.','Spine'],
+['Trapezius','The large diamond-shaped muscle across the upper back and top of the shoulders.','Muscles'],
+['Trigger point','A small, very tender spot in a tight band of muscle that can send pain elsewhere. Possibly what you call an egg.','Soft tissue'],
+['True ribs','Ribs 1 to 7. Each joins the breastbone directly through its own cartilage.','Ribs'],
+['Unilateral','On one side only.','Directions'],
+['Vertebra','One of the bones of the spine. The plural is vertebrae.','Spine'],
+['Visceral','To do with the internal organs.','Anatomy'],
+['Xiphoid process','The small pointed tip at the bottom of the breastbone.','Anatomy']
+];
+var vert = {
+ C1:'the atlas, which holds the skull and allows nodding',C2:'the axis, the pivot for turning the head',C3:'in the upper neck',C4:'in the middle of the neck; the nerve to the diaphragm starts from C3 to C5',C5:'in the lower-middle neck; its nerve supplies the shoulder',C6:'in the lower neck; its nerve supplies the thumb side of the arm',C7:'the bump you can feel at the base of the neck (vertebra prominens)',
+ T1:'at the base of the neck; rib 1 joins here',T2:'near the top of the shoulder blades',T3:'level with the inner end of the spine of the shoulder blade',T4:'its nerve supplies the band of skin around nipple level',T5:'in the upper back between the shoulder blades',T6:'its nerve band is around the bottom of the breastbone',T7:'roughly level with the lower tip of the shoulder blade',T8:'in the mid back, behind the lower chest',T9:'in the mid back',T10:'its nerve band is around the belly button',T11:'rib 11 joins here; lower mid back',T12:'the last thoracic vertebra; rib 12 joins here and the diaphragm and psoas begin near here',
+ L1:'the first lumbar vertebra; the spinal cord usually ends around here',L2:'upper lower back; the diaphragm and psoas attach near here',L3:'the middle of the lower back',L4:'roughly level with the top of the hip bones',L5:'the lowest lumbar vertebra, sitting on the sacrum'};
+Object.keys(vert).forEach(function(k){ var part = k[0]==='C'?'neck (cervical)':k[0]==='T'?'thoracic (upper and mid back)':'lumbar (lower back)'; G.push([k, 'The '+(k[0]==='C'?'cervical':k[0]==='T'?'thoracic':'lumbar')+' vertebra number '+k.slice(1)+' in the '+part+' spine: '+vert[k]+'.','Vertebrae']); });
+var ribs = {1:'the shortest and flattest, tucked under the collarbone; a true rib',2:'a true rib; joins the breastbone at the angle you can feel near the top',3:'a true rib',4:'a true rib; around nipple level at the front',5:'a true rib',6:'a true rib; its cartilage is near the bottom of the breastbone',7:'the last true rib; the diaphragm starts attaching to the inner ribs from here down',8:'a false rib, joining the cartilage of rib 7',9:'a false rib',10:'the last false rib; its cartilage forms the lower edge of the ribcage',11:'a floating rib, attached only at the back; its tip can be felt at the side',12:'a floating rib, the lowest and shortest, attached at T12'};
+Object.keys(ribs).forEach(function(k){ G.push(['Rib '+k,'Rib number '+k+' on each side: '+ribs[k]+'. At the back its head joins the spine at T'+k+((+k>=2&&+k<=9)?' and the vertebra above':'')+'.','Rib numbers']); });
+window.GLOSSARY = G;
+})();
+</script>
+<script>/* Learning quiz questions: q, options, answer index, explain */
+window.ANATOMY_QUIZ = [
+ {q:'How many pairs of ribs do most people have?',o:['10','12','14','24'],a:1,e:'12 pairs, 24 ribs in total.'},
+ {q:'Which ribs are the floating ribs?',o:['Ribs 1 and 2','Ribs 8 to 10','Ribs 11 and 12','Ribs 6 and 7'],a:2,e:'Ribs 11 and 12 attach only at the back.'},
+ {q:'Which ribs are the true ribs?',o:['Ribs 1 to 7','Ribs 1 to 10','Ribs 8 to 12','Only rib 1'],a:0,e:'Ribs 1 to 7 join the breastbone directly through their own cartilage.'},
+ {q:'Ribs 8, 9 and 10 are called what?',o:['Floating ribs','True ribs','False ribs','Short ribs'],a:2,e:'False ribs join the breastbone indirectly, through the cartilage of the rib above.'},
+ {q:'What is the space between two ribs called?',o:['A facet','An intercostal space','A disc','A dermatome'],a:1,e:'Intercostal means between the ribs. There are 11 spaces on each side.'},
+ {q:'Where does the nerve between the ribs run?',o:['Along the top edge of each rib','Along the lower edge of each rib','Through the middle of the rib','It does not exist'],a:1,e:'The intercostal nerve, artery and vein run along the lower edge of each rib.'},
+ {q:'How many thoracic vertebrae are there?',o:['5','7','12','24'],a:2,e:'T1 to T12, one for each pair of ribs.'},
+ {q:'How many neck (cervical) vertebrae are there?',o:['5','7','12','3'],a:1,e:'C1 to C7. C1 is the atlas and C2 the axis.'},
+ {q:'How many lumbar vertebrae do most people have?',o:['5','7','12','4'],a:0,e:'L1 to L5 in the lower back.'},
+ {q:'Which vertebra is the bump you can feel at the base of the neck?',o:['C1','C4','C7','L5'],a:2,e:'C7 is called the vertebra prominens because it sticks out.'},
+ {q:'What are the two small joints where a rib meets the spine?',o:['Facet and disc','Costovertebral and costotransverse','Sacroiliac and hip','Costochondral and sternal'],a:1,e:'The rib head meets the vertebral bodies (costovertebral) and the rib meets the transverse process (costotransverse).'},
+ {q:'On a deep breath in, how do the upper ribs move?',o:['Like a pump handle, forwards and up','Like a bucket handle, outwards','They do not move','Downwards'],a:0,e:'Upper ribs move like a pump handle; lower ribs swing out like a bucket handle.'},
+ {q:'Which muscle sits next to the diaphragm at the upper lumbar spine?',o:['Piriformis','Psoas','Masseter','Trapezius'],a:1,e:'The psoas and the diaphragm meet near T12 to L2, which is why breathing and the hip flexors are linked.'},
+ {q:'Which nerve runs next to the piriformis?',o:['The sciatic nerve','The intercostal nerve','The optic nerve','The facial nerve'],a:0,e:'The sciatic nerve passes right beside, and sometimes through, the piriformis.'},
+ {q:'Where are the suboccipital muscles?',o:['Under the foot','Under the base of the skull','Between the ribs','In the buttock'],a:1,e:'Four small pairs of muscles under the skull, often linked with headaches.'},
+ {q:'What runs from heel to toes under the foot?',o:['The IT band','The plantar fascia','The Achilles tendon','The psoas'],a:1,e:'The plantar fascia supports the arch.'},
+ {q:'Which fascial line has the strongest evidence from dissection studies?',o:['Superficial front line','Superficial back line','Deep front line','None of them'],a:1,e:'Wilke 2016 found strong evidence for the superficial back line and the two functional lines.'},
+ {q:'Which line links one shoulder blade to the opposite buttock?',o:['Back functional line','Lateral line','Superficial front line','Arm line'],a:0,e:'The back functional line crosses the low back to the opposite side.'},
+ {q:'Why should you never press on the eyeball?',o:['It may cause a rash','It can slow the heart (oculocardiac reflex)','It makes you sneeze','It has no effect'],a:1,e:'Pressure on the eye can trigger a reflex that slows the heart.'},
+ {q:'In positional release, how long do you usually hold the position of ease?',o:['5 seconds','About 90 seconds','10 minutes','An hour'],a:1,e:'About 90 seconds, then return to neutral slowly.'},
+ {q:'In muscle energy technique, how hard do you push?',o:['As hard as possible','About 10 to 20 percent effort','Not at all','Until it hurts'],a:1,e:'Gentle effort, about 10 to 20 percent, for 5 to 10 seconds.'},
+ {q:'Which of these is an emergency red flag?',o:['Mild stiffness in the morning','Numbness around the saddle area','An itch that comes and goes','A click without pain'],a:1,e:'Saddle numbness can mean cauda equina syndrome. Call 999 or go to A and E.'},
+ {q:'Roughly which nerve level supplies the skin around the belly button?',o:['T4','T10','C7','L5'],a:1,e:'T10. T4 is roughly at nipple level.'},
+ {q:'Can foam rollers break up adhesions in fascia?',o:['Yes, easily','No, the forces needed are far too large','Only on the feet','Only with oil'],a:1,e:'Fascia would need hundreds of kilograms of force to change shape. Relief is mainly through the nervous system.'},
+ {q:'What does contralateral mean?',o:['Same side','Opposite side','Both sides','In the middle'],a:1,e:'Contralateral means on the opposite side. Ipsilateral means the same side.'},
+ {q:'Where is the sacroiliac joint?',o:['In the neck','Between the sacrum and the pelvis','In the jaw','Under the foot'],a:1,e:'Near the dimples at the base of the back.'},
+ {q:'What is the slippery fluid between fascia layers called?',o:['Hyaluronan','Collagen','Cartilage','Lactic acid'],a:0,e:'Hyaluronan lets the layers glide.'},
+ {q:'Which rib is the shortest and tucked under the collarbone?',o:['Rib 1','Rib 6','Rib 10','Rib 12'],a:0,e:'Rib 1 is short, flat and sits under the collarbone.'}
+];
+</script>
+<script>/* Body Care Companion UI. Plain DOM, hash routes, event delegation. */
+(function () {
+'use strict';
+var B = window.BCC, KEY = 'bcc-data-v1';
+var S = load();
+var main = document.getElementById('main'), live = document.getElementById('live');
+var ui = { sort: 'priority', minutes: null, check: null, quiz: null, glossQ: '', glossCat: '' };
+
+function load() {
+  try { var raw = localStorage.getItem(KEY); if (raw) return B.importBackup(raw); } catch (e) { }
+  return B.emptyState();
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); return true; }
+  catch (e) { say('Could not save on this device. Storage may be full. Please export a backup.'); return false; }
+}
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function say(msg) { live.textContent = ''; setTimeout(function () { live.textContent = msg; }, 60); }
+function go(h) { if (location.hash === '#' + h) route(); else location.hash = h; }
+function fmtDate(d) { try { var x = new Date(d + 'T12:00:00'); return x.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return d; } }
+function shortDate(d) { try { return new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }); } catch (e) { return d; } }
+function sr(t) { return '<span class="sr">' + esc(t) + '</span>'; }
+function applySettings() {
+  document.documentElement.classList.toggle('hc', !!S.settings.contrast);
+  document.documentElement.classList.toggle('big', !!S.settings.bigText);
+}
+function page(title, html, focusSel) {
+  main.innerHTML = '<h1 tabindex="-1">' + esc(title) + '</h1>' + html;
+  document.title = title + ' - Body Care Companion';
+  var f = focusSel && main.querySelector(focusSel); (f || main.querySelector('h1')).focus();
+  window.scrollTo(0, 0);
+}
+function statusWord(s) { return s === 'resolved' ? 'resolved' : s === 'improved' ? 'improved' : 'open'; }
+function radios(name, list, cur, legend) {
+  return '<fieldset><legend>' + esc(legend) + '</legend>' + list.map(function (x, i) {
+    var id = name + '-' + x[0]; return '<div class="opt"><input type="radio" name="' + name + '" id="' + id + '" value="' + esc(x[0]) + '"' + (String(cur) === String(x[0]) ? ' checked' : '') + '><label for="' + id + '">' + esc(x[1]) + '</label></div>';
+  }).join('') + '</fieldset>';
+}
+function checks(name, list, cur, legend) {
+  cur = cur || [];
+  return '<fieldset><legend>' + esc(legend) + '</legend>' + list.map(function (x) {
+    var id = name + '-' + x[0]; return '<div class="opt"><input type="checkbox" name="' + name + '" id="' + id + '" value="' + esc(x[0]) + '"' + (cur.indexOf(x[0]) >= 0 ? ' checked' : '') + '><label for="' + id + '">' + esc(x[1]) + '</label></div>';
+  }).join('') + '</fieldset>';
+}
+function intensitySelect(id, cur, extra) {
+  var o = (extra || []).map(function (x) { return '<option value="' + x[0] + '">' + esc(x[1]) + '</option>'; }).join('');
+  for (var i = 0; i <= 10; i++) o += '<option value="' + i + '"' + (String(cur) === String(i) ? ' selected' : '') + '>' + i + (i === 0 ? ', none' : i === 10 ? ', worst' : '') + '</option>';
+  return o;
+}
+function locOptions(region, cur) {
+  var r = B.REGION_BY_ID[region];
+  return r.locations.map(function (l) { return '<option value="' + l.id + '"' + (l.id === cur ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('');
+}
+function regionOptions(cur) { return B.REGIONS.map(function (r) { return '<option value="' + r.id + '"' + (r.id === cur ? ' selected' : '') + '>' + esc(r.name) + '</option>'; }).join(''); }
+
+/* ---------- Spot form ---------- */
+function spotForm(opts) {
+  // opts: mode add|update|mini, region, spot, regionChoice
+  var sp = opts.spot, e = sp ? B.latest(sp) : {}, region = sp ? sp.region : (opts.region || 'feet'), r = B.REGION_BY_ID[region];
+  var h = '<form data-form="spot" data-mode="' + opts.mode + '"' + (sp ? ' data-id="' + sp.id + '"' : '') + ' novalidate>';
+  if (!sp) {
+    if (opts.regionChoice) h += '<div class="field"><label for="f-region">Body region</label><select id="f-region" name="region" data-change="region">' + regionOptions(region) + '</select></div>';
+    else h += '<input type="hidden" name="region" value="' + region + '">';
+    h += '<div class="field"><label for="f-loc">Which part</label><select id="f-loc" name="loc">' + locOptions(region, opts.loc) + '</select></div>';
+    h += '<div id="f-pos-wrap">' + (r.ribs ? radios('pos', r.positions.map(function (p) { return [p.id, p.name]; }), 'back', 'Front, side or back') : '') + '</div>';
+    h += radios('side', [['L', 'Left'], ['R', 'Right'], ['C', 'Centre'], ['B', 'Both sides']], 'L', 'Which side');
+  }
+  h += checks('sensations', B.SENSATIONS, e.sensations, 'What do you feel? Tick all that apply');
+  h += '<div class="field"><label for="f-int">Intensity, 0 to 10</label><select id="f-int" name="intensity">' + intensitySelect('f-int', e.intensity != null ? e.intensity : 3) + '</select></div>';
+  h += checks('flags', [['cluster3', 'Part of a cluster of three'], ['worseMove', 'Worse when I move'], ['worseBreath', 'Worse when I breathe']], [e.cluster3 ? 'cluster3' : '', e.worseMove ? 'worseMove' : '', e.worseBreath ? 'worseBreath' : ''], 'Patterns');
+  h += radios('count', B.COUNTS, e.count || '1', 'How many spots like this here');
+  if (opts.mode !== 'mini') {
+    h += '<details><summary>More detail: quality, depth, size and links (optional)</summary>';
+    h += checks('qualities', B.QUALITIES, e.qualities, 'Quality of the feeling');
+    h += radios('depth', B.DEPTHS, e.depth, 'Depth');
+    h += radios('size', B.SIZES, e.size, 'Size');
+    var others = S.spots.filter(function (x) { return !sp || x.id !== sp.id; });
+    if (others.length) h += '<div class="field"><label for="f-linked">Linked to another spot (you can choose more than one)</label><select id="f-linked" name="linked" multiple size="4">' + others.map(function (x) { return '<option value="' + x.id + '"' + ((e.linked || []).indexOf(x.id) >= 0 ? ' selected' : '') + '>' + esc(B.spotName(x)) + ', ' + esc(B.REGION_BY_ID[x.region].name) + '</option>'; }).join('') + '</select></div>';
+    h += '</details>';
+    h += '<div class="field"><label for="f-desc">Describe it in your own words. For an egg: its size, shape, hard or soft, and whether it moves.</label><textarea id="f-desc" name="desc" rows="3">' + esc(e.desc || '') + '</textarea></div>';
+    h += '<div class="field"><label for="f-note">Note for today (optional)</label><textarea id="f-note" name="note" rows="2"></textarea></div>';
+  }
+  h += '<button type="submit" class="primary">' + (opts.mode === 'update' ? 'Save today\'s reading' : 'Save this spot') + '</button></form>';
+  return h;
+}
+function readSpotForm(f) {
+  var d = { sensations: [], qualities: [], linked: [] };
+  function val(n) { var el = f.elements[n]; if (!el) return ''; if (el.length !== undefined && el.tagName !== 'SELECT') { for (var i = 0; i < el.length; i++) if (el[i].checked) return el[i].value; return ''; } return el.value; }
+  d.region = val('region'); d.loc = val('loc'); d.pos = val('pos'); d.side = val('side');
+  Array.prototype.forEach.call(f.querySelectorAll('input[name=sensations]:checked'), function (x) { d.sensations.push(x.value); });
+  Array.prototype.forEach.call(f.querySelectorAll('input[name=qualities]:checked'), function (x) { d.qualities.push(x.value); });
+  var fl = Array.prototype.map.call(f.querySelectorAll('input[name=flags]:checked'), function (x) { return x.value; });
+  d.cluster3 = fl.indexOf('cluster3') >= 0; d.worseMove = fl.indexOf('worseMove') >= 0; d.worseBreath = fl.indexOf('worseBreath') >= 0;
+  d.intensity = val('intensity'); d.count = val('count'); d.depth = val('depth'); d.size = val('size');
+  var ls = f.querySelector('select[name=linked]'); if (ls) Array.prototype.forEach.call(ls.options, function (o) { if (o.selected) d.linked.push(o.value); });
+  d.desc = f.elements.desc ? f.elements.desc.value : ''; d.note = f.elements.note ? f.elements.note.value : '';
+  return d;
+}
+function gentlePrompt(spot) {
+  var e = B.latest(spot), msgs = [];
+  if ((e.intensity || 0) >= 8) msgs.push('That is a high reading. Go gently today, and if it is new or getting worse quickly, consider NHS 111.');
+  var flags = B.redFlagHints({ spots: [spot] });
+  return msgs.concat(flags);
+}
+
+/* ---------- Views ---------- */
+var V = {};
+V.home = function () {
+  var p = B.progress(S), h = '';
+  h += '<p>Hello Ahsan. This is your body map, your reports and your tools in one place. Everything stays on this phone.</p>';
+  if (B.backupDue(S)) h += '<div class="notice" role="status"><h2>Backup reminder</h2><p>You have changes that are not in a backup yet. A backup keeps your map safe if the phone is reset.</p><p><a class="btn" href="#/share">Make a backup now</a></p></div>';
+  var flags = B.redFlagHints(S);
+  if (flags.length) h += '<div class="notice"><h2>Gentle safety note</h2><ul>' + flags.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul><p><a href="#/safety">Read the safety page</a></p></div>';
+  if (S.last && S.last.route && S.last.route !== '/' && S.last.label) h += '<p><a class="btn primary" href="#' + esc(S.last.route) + '">Continue where you left off: ' + esc(S.last.label) + '</a></p>';
+  h += '<h2>Start here</h2><ul class="cards">';
+  h += '<li><a class="btn" href="#/check">Morning check, 2 to 3 minutes</a></li>';
+  h += '<li><a class="btn" href="#/plan">Today\'s plan</a></li>';
+  h += '<li><a class="btn" href="#/map">Body map</a></li>';
+  h += '<li><a class="btn" href="#/add">Quick add a spot</a></li>';
+  h += '<li><a class="btn" href="#/progress">Progress and history</a></li></ul>';
+  h += '<h2>Your map today</h2><p>' + (p.total ? p.total + ' spots noted: ' + p.open + ' open, ' + p.improved + ' improved, ' + p.resolved + ' resolved.' : 'No spots yet. The morning check or quick add is the easiest way to begin.') + '</p>';
+  h += '<h2>Learn and look up</h2><ul class="cards"><li><a class="btn" href="#/reports">Research reports</a></li><li><a class="btn" href="#/glossary">Glossary of medical words</a></li><li><a class="btn" href="#/learn">Learning quizzes</a></li><li><a class="btn" href="#/tools">Timer and breathing pacer</a></li></ul>';
+  h += '<p class="small">Ideas to consider, never a diagnosis. In an emergency call 999. For urgent advice call NHS 111.</p>';
+  page('Body Care Companion', h);
+};
+
+/* Morning check */
+V.check = function () {
+  var c = ui.check || (ui.check = { step: 1, overall: '', minutes: 20 });
+  var h = '';
+  if (c.step === 1) {
+    h += '<p>Step 1 of 4. About two to three minutes in total.</p><form data-form="check1">';
+    h += radios('overall', [['better', 'Better than yesterday'], ['same', 'About the same'], ['worse', 'Worse than yesterday']], c.overall || 'same', 'How is your body this morning?');
+    h += radios('minutes', [['10', 'About 10 minutes'], ['20', 'About 20 minutes'], ['40', '40 minutes or more']], String(c.minutes), 'How much time do you have today?');
+    h += '<button type="submit" class="primary">Next</button></form>';
+  } else if (c.step === 2) {
+    h += '<p>Step 2 of 4. A quick safety check.</p><form data-form="check2"><fieldset><legend>Since yesterday, have you had any of these new: numbness or weakness in the legs, numbness around the saddle area, bladder or bowel changes, chest pain or breathlessness, sudden eye pain or vision change, fever with back pain, or a fall?</legend>';
+    h += '<div class="opt"><input type="radio" name="flags" id="fl-no" value="no" checked><label for="fl-no">No, none of these</label></div><div class="opt"><input type="radio" name="flags" id="fl-yes" value="yes"><label for="fl-yes">Yes, one or more</label></div></fieldset>';
+    h += '<button type="submit" class="primary">Next</button></form>';
+  } else if (c.step === 25) {
+    h += '<div class="notice"><h2>Please get checked first</h2><p>These can be signs of something that needs a doctor. For numbness around the saddle area, bladder or bowel changes, severe chest pain, breathlessness or sudden vision loss, call 999. For the others, call NHS 111 or your GP today.</p><p>It is best not to do hands-on work today until you have been checked.</p></div>';
+    h += '<p><a class="btn" href="#/safety">Open the safety page</a></p><button type="button" data-act="check-step" data-step="3">I have been checked, continue</button>';
+  } else if (c.step === 3) {
+    var targets = B.checkTargets(S, new Date(), 5);
+    h += '<p>Step 3 of 4. Update your main spots, then add anything new.</p>';
+    if (targets.length) {
+      h += '<form data-form="check3"><h2>Your main spots</h2><p>For each one choose today\'s intensity, or Same if nothing has changed.</p>';
+      targets.forEach(function (s, i) {
+        var e = B.latest(s);
+        h += '<div class="field"><label for="q-' + i + '">' + esc(B.spotName(s)) + ', ' + esc(B.REGION_BY_ID[s.region].name) + '. Last time ' + (e.intensity || 0) + ' on ' + esc(shortDate(e.date)) + '.</label><select id="q-' + i + '" data-spot="' + s.id + '"><option value="same">Same as before</option><option value="gone">Gone</option>' + intensitySelect('', '') + '</select></div>';
+      });
+      h += '<button type="submit" class="primary">Save and see today\'s plan</button></form>';
+      h += '<h2>Anything new this morning?</h2><p><button type="button" data-act="check-new" aria-expanded="false">Add a new spot</button></p><div id="check-new" hidden></div>';
+    } else {
+      h += '<h2>Where do you feel something?</h2><p>Your map is empty, so let us add your first spot. Answer what you can and skip the rest.</p>' + spotForm({ mode: 'mini', regionChoice: true, region: 'ribs' });
+      h += '<p><button type="button" data-act="check-step" data-step="4">Skip to today\'s plan</button></p>';
+    }
+  } else {
+    B.checkin(S, { overall: c.overall, minutes: c.minutes, flags: c.flagged }); save();
+    var plan = B.analyse(S, { minutes: c.minutes });
+    h += '<p>Step 4 of 4. Here is today\'s starting plan for about ' + c.minutes + ' minutes. Best-guess ideas, not a diagnosis.</p>';
+    h += planHtml(plan, 2);
+    h += '<p><a class="btn" href="#/plan">Open the full plan</a> <button type="button" data-act="check-restart">Do the check again</button></p>';
+  }
+  page('Morning check', h);
+};
+
+function planHtml(plan, hl) {
+  var H = 'h' + hl, H2 = 'h' + (hl + 1), h = '';
+  if (plan.flags.length) h += '<div class="notice"><' + H + '>Safety first</' + H + '><ul>' + plan.flags.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul><p><a href="#/safety">Safety page</a></p></div>';
+  h += '<ol class="plan">';
+  plan.steps.forEach(function (st, i) {
+    h += '<li><' + H + '>Step ' + (i + 1) + ': ' + esc(st.title) + '</' + H + '>';
+    if (st.kind === 'spot') h += '<p>' + esc(B.RISK_NAME[st.risk]) + '. Suggested approach: ' + esc(B.APPROACH_TEXT[st.approach]) + '.</p>';
+    if (st.kind === 'feeder') h += '<p>Lower-risk warm-up along the chain.</p>';
+    h += '<' + H2 + '>Why</' + H2 + '><ul>' + st.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul>';
+    h += '<' + H2 + '>Ideas to consider</' + H2 + '><ul>' + st.ideas.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul>';
+    if (st.care.length) h += '<p class="care">' + st.care.map(esc).join(' ') + '</p>';
+    if (st.spotId) h += '<p><a class="btn" href="#/spot/' + st.spotId + '">Open this spot' + sr(', ' + st.title) + '</a> <button type="button" data-act="timer" data-sec="90">Start a 90-second timer' + sr(' for ' + st.title) + '</button></p>';
+    h += '</li>';
+  });
+  h += '</ol>';
+  if (plan.notes.length) h += '<' + H + '>Notes</' + H + '><ul>' + plan.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>';
+  return h;
+}
+V.plan = function () {
+  var c = S.checkins && S.checkins.length ? S.checkins[S.checkins.length - 1] : null;
+  var minutes = ui.minutes || (c && c.date === B.today() ? +c.minutes : 20);
+  var plan = B.analyse(S, { minutes: minutes });
+  var h = '<p>Built from your whole body map, your equipment and your own notes on what has helped. These are best-guess ideas to consider, not a diagnosis and not a guarantee.</p>';
+  h += '<div class="field"><label for="plan-min">Time available</label><select id="plan-min" data-change="plan-min"><option value="10"' + (minutes == 10 ? ' selected' : '') + '>About 10 minutes</option><option value="20"' + (minutes == 20 ? ' selected' : '') + '>About 20 minutes</option><option value="40"' + (minutes == 40 ? ' selected' : '') + '>40 minutes or more</option></select></div>';
+  h += planHtml(plan, 2);
+  var eqn = B.equipmentNotes(S.equipment || []);
+  if (eqn.length) h += '<h2>Your equipment</h2><ul>' + eqn.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul><p><a href="#/equipment">Change your equipment</a></p>';
+  h += '<h2>How the plan is worked out</h2><ul><li>Spots are ranked by intensity, clusters of three, how many spots there are, whether breathing or movement makes them worse, and how recently you updated them. Spots you have already worked on today drop down.</li><li>Lower-risk areas come first and work runs from the feet upwards, following the kinetic chain. Extra-gentle areas come last.</li><li>Warm-ups are chosen from the fascial line each priority spot sits on.</li><li>The side is chosen from intensity, your cluster-of-three rule, the cross-body lines, and, once you have logged results, what has actually helped you.</li></ul>';
+  page('Today\'s plan', h);
+};
+
+/* Body map */
+function spotSummary(s) { var e = B.latest(s); return statusWord(s.status) + '. ' + B.describeEntry(e) + '. Updated ' + shortDate(s.updated) + '.'; }
+V.map = function () {
+  var p = B.progress(S), h = '<p>Your map is your memory. Go region by region from the feet up, over as many days as you like. Each region shows how many open spots it has.</p>';
+  h += '<p>' + p.total + ' spots: ' + p.open + ' open, ' + p.improved + ' improved, ' + p.resolved + ' resolved.</p>';
+  h += '<p><a class="btn primary" href="#/add">Quick add a spot</a></p>';
+  h += '<h2>Regions, from the feet up</h2><ul class="cards">';
+  B.REGIONS.forEach(function (r) {
+    var ss = S.spots.filter(function (s) { return s.region === r.id; }), open = ss.filter(function (s) { return s.status !== 'resolved'; }).length;
+    h += '<li><a class="btn" href="#/map/' + r.id + '">' + esc(r.name) + ', ' + (open ? open + ' open' : 'no open spots') + (ss.length - open ? ', ' + (ss.length - open) + ' resolved' : '') + '</a></li>';
+  });
+  h += '</ul>';
+  page('Body map', h);
+};
+V.region = function (id) {
+  var r = B.REGION_BY_ID[id]; if (!r) return V.map();
+  var ss = B.sortSpots(S.spots.filter(function (s) { return s.region === id; }), 'priority', new Date());
+  var h = '<p>' + esc(r.intro) + '</p><p>This is a ' + esc(B.RISK_NAME[r.risk]) + '.</p>';
+  h += '<p><a class="btn primary" href="#/map/' + id + '/add">Add a spot in ' + esc(r.name) + '</a></p>';
+  h += '<h2>Spots here: ' + ss.length + '</h2>';
+  if (!ss.length) h += '<p>No spots noted here yet.</p>';
+  else { h += '<ul class="spots">'; ss.forEach(function (s) { h += '<li><h3><a href="#/spot/' + s.id + '">' + esc(B.spotName(s)) + '</a></h3><p>' + esc(spotSummary(s)) + '</p></li>'; }); h += '</ul>'; }
+  var i = r.order, prev = B.REGIONS[i - 1], next = B.REGIONS[i + 1];
+  h += '<h2>Move around the map</h2><p>';
+  if (next) h += '<a class="btn" href="#/map/' + next.id + '">Next region: ' + esc(next.name) + '</a> ';
+  if (prev) h += '<a class="btn" href="#/map/' + prev.id + '">Previous region: ' + esc(prev.name) + '</a> ';
+  h += '<a class="btn" href="#/map">All regions</a></p>';
+  remember('/map/' + id, r.name);
+  page(r.name, h);
+};
+V.add = function (region) {
+  var h = '<p>Fill in what you can. Only the part and side matter; everything else is optional.</p>' + spotForm({ mode: 'add', region: region || (S.last && S.last.region) || 'ribs', regionChoice: !region });
+  page(region ? 'Add a spot: ' + B.REGION_BY_ID[region].name : 'Quick add a spot', h);
+};
+V.spot = function (id, sub) {
+  var s = B.findSpot(S, id); if (!s) { page('Spot not found', '<p>This spot may have been deleted.</p><p><a href="#/map">Back to the body map</a></p>'); return; }
+  var name = B.spotName(s), r = B.REGION_BY_ID[s.region];
+  if (sub === 'update') { page('Update: ' + name, '<p>Today\'s reading is saved alongside the earlier ones, so you can see how it changes.</p>' + spotForm({ mode: 'update', spot: s })); return; }
+  if (sub === 'worked') {
+    var h0 = '<form data-form="worked" data-id="' + id + '">' + radios('approach', [['direct', 'Directly on the spot'], ['same', 'Same side, around the spot'], ['opposite', 'From the opposite side'], ['diagonal', 'Diagonal, opposite hip or shoulder']], 'direct', 'How did you work on it?');
+    h0 += radios('result', [['better', 'Better afterwards'], ['same', 'About the same'], ['worse', 'Worse afterwards'], ['', 'Not sure yet']], 'better', 'How did it feel afterwards?');
+    h0 += '<button type="submit" class="primary">Save</button></form>';
+    page('Worked on: ' + name, '<p>This helps the plan learn which approach works for you.</p>' + h0); return;
+  }
+  var e = B.latest(s), lines = B.spotLines(s), side = B.chooseSide(S, s);
+  var h = '<p>' + esc(r.name) + '. Status: ' + statusWord(s.status) + '. First noted ' + esc(shortDate(s.created)) + '.</p>';
+  h += '<p>Latest: ' + esc(B.describeEntry(e)) + '.</p>';
+  if (e.desc) h += '<p>In your words: ' + esc(e.desc) + '</p>';
+  if (e.linked && e.linked.length) h += '<p>Linked to: ' + e.linked.map(function (x) { var o = B.findSpot(S, x); return o ? '<a href="#/spot/' + o.id + '">' + esc(B.spotName(o)) + '</a>' : ''; }).join(', ') + '</p>';
+  h += '<h2>Actions</h2><ul class="cards">';
+  h += '<li><a class="btn primary" href="#/spot/' + id + '/update">Update today\'s reading</a></li>';
+  h += '<li><a class="btn" href="#/spot/' + id + '/worked">Mark as worked on today</a></li>';
+  if (s.status !== 'improved') h += '<li><button type="button" data-act="status" data-id="' + id + '" data-status="improved">Mark as improved</button></li>';
+  if (s.status !== 'resolved') h += '<li><button type="button" data-act="status" data-id="' + id + '" data-status="resolved">Mark as resolved</button></li>';
+  if (s.status !== 'open') h += '<li><button type="button" data-act="status" data-id="' + id + '" data-status="open">Reopen</button></li>';
+  h += '<li><button type="button" data-act="timer" data-sec="90">Start a 90-second timer</button></li>';
+  h += '<li><button type="button" class="danger" data-act="delete" data-id="' + id + '">Delete this spot</button></li></ul>';
+  h += '<h2>Ideas to consider for this spot</h2><ul>' + side.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + B.regionIdeas(s, S.equipment).concat(B.sensationIdeas(e)).map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul>';
+  if (lines.length) h += '<h2>Fascial lines through this spot</h2><ul>' + lines.map(function (l) { var x = B.LINES[l]; return '<li>' + esc(x.name) + ': ' + esc(x.path) + '. ' + esc(x.evidence) + '</li>'; }).join('') + '</ul>';
+  h += '<h2>History</h2><ol reversed>' + s.history.slice().reverse().map(function (x) { return '<li>' + esc(fmtDate(x.date)) + ': ' + esc(B.describeEntry(x)) + (x.desc ? '. In your words: ' + esc(x.desc) : '') + (x.note ? '. Note: ' + esc(x.note) : '') + '</li>'; }).join('') + '</ol>';
+  if (s.worked.length) h += '<h2>Times worked on</h2><ul>' + s.worked.slice().reverse().map(function (w) { return '<li>' + esc(fmtDate(w.date)) + ': ' + esc(B.APPROACH_TEXT[w.approach] || w.approach) + (w.result ? ', felt ' + esc(w.result) + ' afterwards' : '') + '</li>'; }).join('') + '</ul>';
+  h += '<p><a class="btn" href="#/map/' + s.region + '">Back to ' + esc(r.name) + '</a></p>';
+  remember('/spot/' + id, name);
+  page(name, h);
+};
+
+/* Progress */
+V.progress = function () {
+  var p = B.progress(S), now = new Date(), h = '';
+  h += '<p>' + p.total + ' spots in total: ' + p.open + ' open, ' + p.improved + ' improved and ' + p.resolved + ' resolved. Added together, the intensity of all spots when first noted was ' + p.firstTotal + '; today it is ' + p.nowTotal + '.</p>';
+  h += '<h2>What has eased</h2>' + (p.eased.length ? '<ul>' + p.eased.map(function (x) { return '<li><a href="#/spot/' + x.spot.id + '">' + esc(B.spotName(x.spot)) + '</a>: from ' + x.from + ' to ' + x.to + ' since ' + esc(shortDate(x.since)) + (x.spot.status === 'resolved' ? ', resolved' : '') + '.</li>'; }).join('') + '</ul>' : '<p>Nothing has eased yet in your notes. Update spots as they change and they will show here.</p>');
+  if (p.worse.length) h += '<h2>What is worse</h2><ul>' + p.worse.map(function (x) { return '<li><a href="#/spot/' + x.spot.id + '">' + esc(B.spotName(x.spot)) + '</a>: from ' + x.from + ' to ' + x.to + '.</li>'; }).join('') + '</ul>';
+  var open = B.sortSpots(B.openSpots(S), ui.sort, now);
+  h += '<h2>Open spots</h2><div class="field"><label for="sort">Sort by</label><select id="sort" data-change="sort"><option value="priority"' + (ui.sort === 'priority' ? ' selected' : '') + '>Priority</option><option value="region"' + (ui.sort === 'region' ? ' selected' : '') + '>Region, feet to head</option><option value="date"' + (ui.sort === 'date' ? ' selected' : '') + '>Most recently updated</option></select></div>';
+  h += open.length ? '<ul class="spots" id="open-list">' + open.map(function (s) { return '<li><h3><a href="#/spot/' + s.id + '">' + esc(B.spotName(s)) + '</a></h3><p>' + esc(B.REGION_BY_ID[s.region].name) + '. ' + esc(spotSummary(s)) + ' Priority ' + B.priority(s, now) + '.</p></li>'; }).join('') + '</ul>' : '<p>No open spots.</p>';
+  h += '<h2>Journal</h2><form data-form="journal"><div class="field"><label for="j-text">Write a note for today</label><textarea id="j-text" name="text" rows="3"></textarea></div><button type="submit">Save note</button></form>';
+  var days = B.historyByDate(S).slice(0, 30);
+  h += '<h2>History by date</h2>' + (days.length ? '' : '<p>Nothing yet.</p>');
+  days.forEach(function (d) {
+    h += '<h3>' + esc(fmtDate(d.date)) + '</h3><ul>' + d.items.map(function (it) {
+      if (it.kind === 'entry') return '<li>' + esc(B.spotName(it.spot)) + ': ' + esc(B.describeEntry(it.entry)) + (it.entry.note ? '. ' + esc(it.entry.note) : '') + '</li>';
+      if (it.kind === 'worked') return '<li>Worked on ' + esc(B.spotName(it.spot)) + ' (' + esc(B.APPROACH_TEXT[it.worked.approach] || '') + ')' + (it.worked.result ? ', ' + esc(it.worked.result) : '') + '</li>';
+      if (it.kind === 'status') return '<li>' + esc(B.spotName(it.spot)) + ' marked ' + esc(it.status) + '</li>';
+      if (it.kind === 'checkin') return '<li>Morning check: ' + esc(it.checkin.overall || 'done') + ', ' + esc(it.checkin.minutes) + ' minutes planned</li>';
+      return '<li>Journal: ' + esc(it.journal.text) + '</li>';
+    }).join('') + '</ul>';
+  });
+  remember('/progress', 'Progress');
+  page('Progress and history', h);
+};
+
+/* Reports */
+function isMarked(kind, id) { return S.bookmarks[kind].indexOf(id) >= 0; }
+V.reports = function () {
+  var h = '<p>' + REPORTS.length + ' reports, researched from the NHS, Physiopedia, Cleveland Clinic, Mayo Clinic, the Chartered Society of Physiotherapy, PubMed reviews and Wikipedia. Each has an evidence strength line and a source list.</p>';
+  var marked = REPORTS.filter(function (r) { return isMarked('reports', r.id); });
+  if (marked.length) h += '<h2>Your bookmarks</h2><ul class="cards">' + marked.map(function (r) { return '<li><a class="btn" href="#/report/' + r.id + '">' + esc(r.title) + '</a></li>'; }).join('') + '</ul>';
+  h += '<h2>All reports</h2><ul class="spots">' + REPORTS.map(function (r) { return '<li><h3><a href="#/report/' + r.id + '">' + esc(r.title) + '</a></h3><p>' + esc(r.summary) + '</p></li>'; }).join('') + '</ul>';
+  page('Research reports', h);
+};
+V.report = function (id) {
+  var i = REPORTS.findIndex(function (r) { return r.id === id; }), r = REPORTS[i]; if (!r) return V.reports();
+  var on = isMarked('reports', id);
+  var h = '<p>' + esc(r.summary) + '</p><p class="evidence">Evidence strength: ' + esc(r.evidence) + '</p>';
+  h += '<p><button type="button" data-act="mark" data-kind="reports" data-id="' + id + '" aria-pressed="' + on + '">Bookmark this report</button></p>';
+  r.sections.forEach(function (s) {
+    h += '<h2>' + esc(s.h) + '</h2>' + (s.p || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+    if (s.list) h += '<ul>' + s.list.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+  });
+  h += '<h2>Sources</h2><ul class="sources">' + r.sources.map(function (s) { return '<li>' + esc(s[0]) + ': <a href="' + esc(s[1]) + '" rel="noopener">' + esc(s[1]) + '</a></li>'; }).join('') + '</ul>';
+  h += '<p class="small">Researched 22 November 2026. Information only, not a diagnosis.</p><p>';
+  if (REPORTS[i + 1]) h += '<a class="btn" href="#/report/' + REPORTS[i + 1].id + '">Next report: ' + esc(REPORTS[i + 1].title) + '</a> ';
+  if (REPORTS[i - 1]) h += '<a class="btn" href="#/report/' + REPORTS[i - 1].id + '">Previous report: ' + esc(REPORTS[i - 1].title) + '</a> ';
+  h += '<a class="btn" href="#/reports">All reports</a></p>';
+  remember('/report/' + id, r.title);
+  page(r.title, h);
+};
+
+/* Glossary */
+var CATS = [];
+GLOSSARY.forEach(function (g) { if (CATS.indexOf(g[2]) < 0) CATS.push(g[2]); });
+function slug(t) { return 'g-' + t.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+V.glossary = function () {
+  var h = '<p>' + GLOSSARY.length + ' words explained in plain English. Type to search, or browse by group using headings.</p>';
+  h += '<div class="field"><label for="g-search">Search the glossary</label><input type="search" id="g-search" data-input="gloss" autocomplete="off" value="' + esc(ui.glossQ) + '"></div>';
+  h += '<div class="field"><label for="g-cat">Show group</label><select id="g-cat" data-change="gcat"><option value="">All groups</option><option value="__marked"' + (ui.glossCat === '__marked' ? ' selected' : '') + '>My saved words</option>' + CATS.map(function (c) { return '<option' + (ui.glossCat === c ? ' selected' : '') + '>' + esc(c) + '</option>'; }).join('') + '</select></div>';
+  h += '<p id="g-count" role="status"></p><div id="g-list"></div>';
+  page('Glossary', h);
+  renderGloss();
+};
+function renderGloss() {
+  var q = ui.glossQ.trim().toLowerCase(), cat = ui.glossCat, n = 0, h = '';
+  CATS.forEach(function (c) {
+    var items = GLOSSARY.filter(function (g) {
+      if (g[2] !== c) return false;
+      if (cat === '__marked' && !isMarked('terms', g[0])) return false;
+      if (cat && cat !== '__marked' && cat !== c) return false;
+      return !q || g[0].toLowerCase().indexOf(q) >= 0 || g[1].toLowerCase().indexOf(q) >= 0;
+    });
+    if (!items.length) return; n += items.length;
+    items.sort(function (a, b) { var aa = a[0].toLowerCase().indexOf(q) === 0 ? 0 : 1, bb = b[0].toLowerCase().indexOf(q) === 0 ? 0 : 1; return aa - bb || 0; });
+    h += '<h2>' + esc(c) + '</h2><ul class="terms">' + items.map(function (g) { var on = isMarked('terms', g[0]); return '<li id="' + slug(g[0]) + '"><h3>' + esc(g[0]) + '</h3><p>' + esc(g[1]) + '</p><button type="button" class="small-btn" data-act="mark" data-kind="terms" data-id="' + esc(g[0]) + '" aria-pressed="' + on + '">Save word' + sr(' ' + g[0]) + '</button></li>'; }).join('') + '</ul>';
+  });
+  document.getElementById('g-list').innerHTML = h || '<p>No words match. Try a shorter search.</p>';
+  document.getElementById('g-count').textContent = n + (n === 1 ? ' word matches.' : ' words match.');
+}
+
+/* Learning quizzes */
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function makeQuiz(kind) {
+  if (kind === 'anatomy') return shuffle(ANATOMY_QUIZ).slice(0, 10).map(function (q) { var idx = shuffle([0, 1, 2, 3]); return { q: q.q, o: idx.map(function (i) { return q.o[i]; }), a: idx.indexOf(q.a), e: q.e }; });
+  if (kind === 'ribs') {
+    var out = [];
+    shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).slice(0, 8).forEach(function (n) { var t = n <= 7 ? 0 : n <= 10 ? 1 : 2; out.push({ q: 'What type of rib is rib ' + n + '?', o: ['A true rib', 'A false rib', 'A floating rib'], a: t, e: 'Ribs 1 to 7 are true, 8 to 10 false, and 11 and 12 floating.' }); });
+    return out;
+  }
+  var pool = GLOSSARY.filter(function (g) { return g[2] !== 'Vertebrae' && g[2] !== 'Rib numbers'; });
+  return shuffle(pool).slice(0, 10).map(function (g) {
+    var wrong = shuffle(pool.filter(function (x) { return x[0] !== g[0]; })).slice(0, 3).map(function (x) { return x[1]; });
+    var opts = shuffle(wrong.concat([g[1]]));
+    return { q: 'What does "' + g[0] + '" mean?', o: opts, a: opts.indexOf(g[1]), e: g[0] + ': ' + g[1] };
+  });
+}
+V.learn = function () {
+  var z = ui.quiz, h = '';
+  if (!z) {
+    h += '<p>Short multiple-choice quizzes to help the words and anatomy stick. Results are read out as soon as you answer.</p><ul class="cards">';
+    h += '<li><button type="button" data-act="quiz" data-kind="anatomy">Anatomy quiz, 10 questions</button></li>';
+    h += '<li><button type="button" data-act="quiz" data-kind="glossary">Glossary quiz, 10 questions</button></li>';
+    h += '<li><button type="button" data-act="quiz" data-kind="ribs">Rib types quiz, 8 questions</button></li></ul>';
+    if (S.quizStats.asked) h += '<p>All-time score: ' + S.quizStats.right + ' right out of ' + S.quizStats.asked + '.</p>';
+    page('Learning quizzes', h); return;
+  }
+  if (z.i >= z.qs.length) {
+    h += '<p role="status">Finished. You scored ' + z.score + ' out of ' + z.qs.length + '.</p><p><button type="button" data-act="quiz" data-kind="' + z.kind + '">Try another set</button> <button type="button" data-act="quiz-end">Back to quiz list</button></p>';
+    page('Quiz results', h); return;
+  }
+  var q = z.qs[z.i];
+  h += '<h2 id="qh" tabindex="-1">Question ' + (z.i + 1) + ' of ' + z.qs.length + '</h2><p>' + esc(q.q) + '</p><ul class="cards" role="list">';
+  q.o.forEach(function (o, k) { h += '<li><button type="button" data-act="answer" data-k="' + k + '"' + (z.answered ? ' disabled' : '') + '>' + esc(o) + '</button></li>'; });
+  h += '</ul><div id="feedback" aria-live="polite"></div><p><button type="button" data-act="quiz-end">Stop this quiz</button></p>';
+  page(z.title, h, z.i ? '#qh' : null);
+};
+
+/* Tools */
+var timer = { left: 0, total: 0, id: null, every: false };
+var audio = null;
+function ac() { if (!audio) { var C = window.AudioContext || window.webkitAudioContext; if (!C) return null; audio = new C(); } if (audio.state === 'suspended') audio.resume(); return audio; }
+function tone(freq, start, dur, vol, endFreq) {
+  var a = ac(); if (!a) return; var t = a.currentTime + (start || 0), o = a.createOscillator(), g = a.createGain();
+  o.type = 'sine'; o.frequency.setValueAtTime(freq, t); if (endFreq) o.frequency.linearRampToValueAtTime(endFreq, t + dur);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.25, t + 0.04); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
+}
+function chime(kind) {
+  if (kind === 'start') { tone(523, 0, 0.8); tone(784, 0.25, 1.0); }
+  else if (kind === 'tick') tone(660, 0, 0.6, 0.15);
+  else { tone(784, 0, 1.2); tone(659, 0.35, 1.2); tone(523, 0.7, 1.8); }
+}
+function fmtTime(s) { var m = Math.floor(s / 60), x = s % 60; return (m ? m + ' minute' + (m === 1 ? '' : 's') + ' ' : '') + x + ' second' + (x === 1 ? '' : 's'); }
+function startTimer(sec) {
+  stopTimer(true); timer.total = timer.left = sec; chime('start');
+  var el = document.getElementById('t-display'); if (el) el.textContent = fmtTime(sec) + ' left';
+  say('Timer started for ' + fmtTime(sec) + '. A chime will sound at the end.');
+  timer.id = setInterval(function () {
+    timer.left--; var d = document.getElementById('t-display'); if (d) d.textContent = fmtTime(timer.left) + ' left';
+    var ev = document.getElementById('t-every'); if (ev && ev.checked && timer.left > 0 && (timer.total - timer.left) % 60 === 0) chime('tick');
+    if (timer.left <= 0) { stopTimer(true); chime('end'); say('Time is up.'); if (d) d.textContent = 'Finished.'; }
+  }, 1000);
+}
+function stopTimer(quiet) { if (timer.id) clearInterval(timer.id); timer.id = null; if (!quiet) { say('Timer stopped.'); var d = document.getElementById('t-display'); if (d) d.textContent = 'Stopped.'; } }
+var breath = { id: null, n: 0 };
+function startBreath() {
+  stopBreath(true);
+  var inS = +document.getElementById('b-in').value, outS = +document.getElementById('b-out').value, total = +document.getElementById('b-count').value;
+  var voice = S.settings.breathVoice; breath.n = 0;
+  var st = document.getElementById('b-status');
+  function cycle() {
+    if (breath.n >= total) { stopBreath(true); chime('end'); if (st) st.textContent = 'Finished ' + total + ' breaths.'; say('Breathing finished.'); return; }
+    breath.n++;
+    tone(330, 0, inS * 0.95, 0.18, 523); if (voice) say('In'); if (st) st.textContent = 'Breath ' + breath.n + ' of ' + total + ': in';
+    breath.id = setTimeout(function () { tone(523, 0, outS * 0.95, 0.18, 294); if (voice) say('Out'); if (st) st.textContent = 'Breath ' + breath.n + ' of ' + total + ': out'; breath.id = setTimeout(cycle, outS * 1000); }, inS * 1000);
+  }
+  say('Breathing pacer started. A rising tone means breathe in, a falling tone means breathe out.');
+  setTimeout(cycle, 1200);
+}
+function stopBreath(quiet) { if (breath.id) clearTimeout(breath.id); breath.id = null; if (!quiet) { say('Breathing pacer stopped.'); var st = document.getElementById('b-status'); if (st) st.textContent = 'Stopped.'; } }
+V.tools = function () {
+  var h = '<p>Gentle chimes only, no voices. If you hear nothing, check that the silent switch on the side of the iPhone is off.</p>';
+  h += '<h2>Session timer</h2><ul class="cards">' + [[30, '30 seconds'], [90, '90 seconds, for positional release'], [120, '2 minutes'], [300, '5 minutes'], [600, '10 minutes'], [1200, '20 minutes']].map(function (t) { return '<li><button type="button" data-act="timer" data-sec="' + t[0] + '">Start ' + t[1] + '</button></li>'; }).join('') + '</ul>';
+  h += '<div class="opt"><input type="checkbox" id="t-every"><label for="t-every">Soft chime every minute</label></div>';
+  h += '<p id="t-display">Not running.</p><p><button type="button" data-act="timer-stop">Stop timer</button> <button type="button" data-act="timer-read">How long is left?</button></p>';
+  h += '<h2>Breathing pacer</h2><p>A rising tone means breathe in; a falling tone means breathe out. You can turn on spoken cues in Settings.</p>';
+  h += '<div class="field"><label for="b-in">Breathe in for</label><select id="b-in"><option value="3">3 seconds</option><option value="4" selected>4 seconds</option><option value="5">5 seconds</option></select></div>';
+  h += '<div class="field"><label for="b-out">Breathe out for</label><select id="b-out"><option value="4">4 seconds</option><option value="6" selected>6 seconds</option><option value="8">8 seconds</option></select></div>';
+  h += '<div class="field"><label for="b-count">Number of breaths</label><select id="b-count"><option>5</option><option selected>10</option><option>20</option></select></div>';
+  h += '<p><button type="button" class="primary" data-act="breath-start">Start breathing</button> <button type="button" data-act="breath-stop">Stop breathing</button></p><p id="b-status">Not running.</p>';
+  page('Timer and breathing', h);
+};
+V.equipment = function () {
+  var h = '<p>Tick what you have. Today\'s plan and the ideas for each spot will use it.</p><form data-form="equip">' + checks('eq', B.EQUIPMENT, S.equipment, 'My equipment') + '<button type="submit" class="primary">Save equipment</button></form>';
+  h += '<h2>Using it gently</h2><ul>' + B.equipmentNotes(B.EQUIPMENT.map(function (x) { return x[0]; })).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul><p><a href="#/report/equipment">Read the full equipment report</a></p>';
+  page('My equipment', h);
+};
+
+/* Share and backup */
+function download(name, text) { var b = new Blob([text], { type: 'text/plain' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
+function copyText(text, what) {
+  function fallback() { var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); say(what + ' copied.'); } catch (e) { say('Could not copy. Use the share button instead.'); } t.remove(); }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { say(what + ' copied.'); }, fallback); else fallback();
+}
+function shareText(text, title) {
+  if (navigator.share) navigator.share({ title: title, text: text }).then(function () { say('Shared.'); }, function () { });
+  else { copyText(text, title); }
+}
+function exportKind(kind) {
+  if (kind === 'backup') return B.exportBackup(S);
+  if (kind === 'map') return B.mapText(S);
+  return B.physioReport(S);
+}
+V.share = function () {
+  var h = '<p>Everything is stored only on this phone, in this browser. A backup protects it. Last backup: ' + (S.lastExport ? esc(fmtDate(S.lastExport)) : 'never') + '.</p>';
+  h += '<h2>Full backup</h2><p>Includes every spot, its history, your journal, bookmarks and settings. Keep it in Notes, email it to yourself, or save it to Files.</p><ul class="cards">';
+  h += '<li><button type="button" data-act="exp" data-kind="backup" data-how="share">Share backup</button></li><li><button type="button" data-act="exp" data-kind="backup" data-how="copy">Copy backup</button></li><li><button type="button" data-act="exp" data-kind="backup" data-how="file">Save backup as a file</button></li></ul>';
+  h += '<h2>Import a backup</h2><form data-form="import"><div class="field"><label for="imp-text">Paste backup text here</label><textarea id="imp-text" name="text" rows="4"></textarea></div><div class="field"><label for="imp-file">Or choose a backup file</label><input type="file" id="imp-file" accept=".txt,.json,text/plain"></div>';
+  h += radios('how', [['merge', 'Merge with what is on this phone (keeps the newest version of each spot)'], ['replace', 'Replace everything on this phone']], 'merge', 'How to import');
+  h += '<button type="submit" class="primary">Import</button></form><div id="imp-result" role="status"></div>';
+  h += '<h2>Readable body map</h2><p>Your whole map as plain text, region by region, with every dated reading.</p><ul class="cards"><li><button type="button" data-act="exp" data-kind="map" data-how="share">Share map text</button></li><li><button type="button" data-act="exp" data-kind="map" data-how="copy">Copy map text</button></li><li><button type="button" data-act="exp" data-kind="map" data-how="file">Save map as a file</button></li></ul>';
+  h += '<h2>Report for a physio or doctor</h2><p>A short summary of current areas, what has eased and what is worse.</p><ul class="cards"><li><button type="button" data-act="exp" data-kind="physio" data-how="share">Share report</button></li><li><button type="button" data-act="exp" data-kind="physio" data-how="copy">Copy report</button></li><li><button type="button" data-act="exp" data-kind="physio" data-how="file">Save report as a file</button></li><li><button type="button" data-act="print">Print report</button></li></ul>';
+  h += '<div class="field"><label for="phys-text">Report preview</label><textarea id="phys-text" rows="8" readonly>' + esc(B.physioReport(S)) + '</textarea></div>';
+  page('Share and backup', h);
+};
+V.safety = function () {
+  var h = '<p>Short and simple. Most aches are not serious, but these signs need help quickly.</p>';
+  h += '<h2>Call 999 or go to A and E now if you have</h2><ul><li>Numbness around the saddle area: genitals, back passage or inner buttocks.</li><li>New problems controlling or feeling your bladder or bowel.</li><li>New numbness or weakness in both legs, or a leg that suddenly gives way.</li><li>Severe chest pain, or chest pain with breathlessness, sweating, or pain spreading to the arm, jaw or back.</li><li>Sudden loss of vision, or sudden severe eye pain.</li></ul>';
+  h += '<h2>Call NHS 111 or your GP the same day if you have</h2><ul><li>Back pain with a fever or feeling very unwell.</li><li>Pain after a fall or injury.</li><li>New numbness, tingling or weakness in one leg or arm.</li><li>Weight loss you cannot explain.</li><li>A lump that is growing, hot, red, or hard and fixed.</li><li>Pain that is getting steadily worse, or wakes you every night.</li></ul>';
+  h += '<h2>Stop and rest if</h2><ul><li>Something you are doing causes sharp pain, tingling, numbness, dizziness or nausea.</li><li>Pain is clearly worse the next day after a session.</li></ul>';
+  h += '<h2>Good habits</h2><ul><li>Gentle beats hard: about 3 to 5 out of 10 pressure.</li><li>Never press on the eyeball, the front of the neck, or the spine itself.</li><li>When you can, ask a physiotherapist to check your technique; the Share page makes a report for them.</li></ul>';
+  h += '<h2>Phone numbers</h2><ul><li>Emergency: <a href="tel:999">999</a></li><li>NHS 111 for urgent advice: <a href="tel:111">111</a></li></ul>';
+  h += '<p class="small">Based on NHS guidance: https://www.nhs.uk/conditions/back-pain/ and https://www.nhs.uk/symptoms/eye-pain/</p>';
+  page('Safety: when to stop and get help', h);
+};
+V.settings = function () {
+  var h = '<form data-form="settings">' + checks('set', [['contrast', 'High contrast colours'], ['bigText', 'Larger text'], ['breathVoice', 'Spoken in and out cues in the breathing pacer (uses VoiceOver)']], Object.keys(S.settings).filter(function (k) { return S.settings[k]; }), 'Display and sound') + '<button type="submit" class="primary">Save settings</button></form>';
+  h += '<h2>About</h2><p>Body Care Companion is an information and note-keeping app. It does not diagnose anything and cannot see inside your body. Its suggestions are best-guess ideas drawn from general research and your own notes.</p><p>It works without the internet once it has loaded. Data never leaves this phone unless you share it.</p>';
+  h += '<h2>Delete everything</h2><p>This removes all spots, history and notes from this phone. Make a backup first.</p><button type="button" class="danger" data-act="wipe">Delete all my data</button>';
+  page('Settings', h);
+};
+function remember(route, label) { S.last = { route: route, label: label, region: route.indexOf('/map/') === 0 ? route.split('/')[2] : (S.last && S.last.region) }; save(); }
+
+/* ---------- Router ---------- */
+function route() {
+  stopBreath(true);
+  var h = (location.hash || '#/').slice(1), parts = h.split('/').filter(Boolean);
+  try {
+    if (!parts.length) return V.home();
+    switch (parts[0]) {
+      case 'check': if (ui.check && ui.check.step === 4) ui.check = null; return V.check();
+      case 'plan': return V.plan();
+      case 'map': if (parts[1]) return parts[2] === 'add' ? V.add(parts[1]) : V.region(parts[1]); return V.map();
+      case 'add': return V.add();
+      case 'spot': return V.spot(parts[1], parts[2]);
+      case 'progress': return V.progress();
+      case 'reports': return V.reports();
+      case 'report': return V.report(parts[1]);
+      case 'glossary': return V.glossary();
+      case 'learn': return V.learn();
+      case 'tools': return V.tools();
+      case 'equipment': return V.equipment();
+      case 'share': return V.share();
+      case 'safety': return V.safety();
+      case 'settings': return V.settings();
+    }
+  } catch (err) { console.error(err); page('Something went wrong', '<p>Sorry, that page could not be shown. Your data is safe.</p><p><a href="#/">Go to the home page</a></p>'); return; }
+  V.home();
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('click', function (ev) {
+  var lk = ev.target.closest('a[href^="#/"]'); if (lk && lk.getAttribute('href') === location.hash) { ev.preventDefault(); route(); return; }
+  var b = ev.target.closest('[data-act]'); if (!b) return;
+  var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
+  if (act === 'status') { B.setStatus(S, id, b.getAttribute('data-status')); save(); V.spot(id); say('Marked as ' + b.getAttribute('data-status') + '.'); }
+  else if (act === 'delete') { if (confirm('Delete this spot and all its history?')) { var r = B.findSpot(S, id).region; B.deleteSpot(S, id); save(); go('/map/' + r); say('Spot deleted.'); } }
+  else if (act === 'timer') { startTimer(+b.getAttribute('data-sec')); }
+  else if (act === 'timer-stop') stopTimer();
+  else if (act === 'timer-read') say(timer.id ? fmtTime(timer.left) + ' left.' : 'The timer is not running.');
+  else if (act === 'breath-start') startBreath();
+  else if (act === 'breath-stop') stopBreath();
+  else if (act === 'mark') {
+    var kind = b.getAttribute('data-kind'), list = S.bookmarks[kind], i = list.indexOf(id);
+    if (i >= 0) list.splice(i, 1); else list.push(id); save();
+    b.setAttribute('aria-pressed', String(i < 0)); say(i < 0 ? 'Saved to bookmarks.' : 'Removed from bookmarks.');
+  }
+  else if (act === 'quiz') { var k = b.getAttribute('data-kind'); ui.quiz = { kind: k, title: k === 'anatomy' ? 'Anatomy quiz' : k === 'ribs' ? 'Rib types quiz' : 'Glossary quiz', qs: makeQuiz(k), i: 0, score: 0 }; V.learn(); }
+  else if (act === 'quiz-end') { ui.quiz = null; V.learn(); }
+  else if (act === 'answer') {
+    var z = ui.quiz, q = z.qs[z.i], kk = +b.getAttribute('data-k'), right = kk === q.a;
+    if (z.answered) return; z.answered = true; if (right) z.score++;
+    S.quizStats.asked++; if (right) S.quizStats.right++; save();
+    Array.prototype.forEach.call(main.querySelectorAll('[data-act=answer]'), function (x) { x.disabled = true; });
+    var fb = document.getElementById('feedback');
+    fb.innerHTML = '<p>' + (right ? 'Correct. ' : 'Not quite. The answer is: ' + esc(q.o[q.a]) + '. ') + esc(q.e) + '</p><button type="button" data-act="next-q">' + (z.i + 1 < z.qs.length ? 'Next question' : 'See my score') + '</button>';
+  }
+  else if (act === 'next-q') { ui.quiz.i++; ui.quiz.answered = false; V.learn(); }
+  else if (act === 'check-step') { ui.check.step = +b.getAttribute('data-step'); V.check(); }
+  else if (act === 'check-restart') { ui.check = null; V.check(); }
+  else if (act === 'check-new') { var box = document.getElementById('check-new'); box.hidden = !box.hidden; b.setAttribute('aria-expanded', String(!box.hidden)); if (!box.hidden) { box.innerHTML = spotForm({ mode: 'mini', regionChoice: true, region: 'ribs' }); box.querySelector('select').focus(); } }
+  else if (act === 'exp') {
+    var kind2 = b.getAttribute('data-kind'), how = b.getAttribute('data-how'), text = exportKind(kind2), names = { backup: 'Body map backup', map: 'Body map', physio: 'Report for physio' };
+    if (how === 'share') shareText(text, names[kind2]); else if (how === 'copy') copyText(text, names[kind2]); else { download('body-care-' + kind2 + '-' + B.today() + '.txt', text); say('File saved.'); }
+    if (kind2 === 'backup') { S.lastExport = B.today(); save(); }
+  }
+  else if (act === 'print') { var pv = document.getElementById('print-area'); pv.textContent = B.physioReport(S); window.print(); }
+  else if (act === 'wipe') { if (confirm('Delete all your Body Care Companion data from this phone? This cannot be undone.')) { S = B.emptyState(); save(); go('/'); say('All data deleted.'); } }
+});
+document.addEventListener('change', function (ev) {
+  var t = ev.target, c = t.getAttribute && t.getAttribute('data-change'); if (!c) return;
+  if (c === 'region') {
+    var f = t.form, r = B.REGION_BY_ID[t.value]; f.querySelector('select[name=loc]').innerHTML = locOptions(t.value);
+    f.querySelector('#f-pos-wrap').innerHTML = r.ribs ? radios('pos', r.positions.map(function (p) { return [p.id, p.name]; }), 'back', 'Front, side or back') : '';
+    say(r.name + ' chosen. ' + r.locations.length + ' parts to choose from.');
+  }
+  else if (c === 'plan-min') { ui.minutes = +t.value; V.plan(); say('Plan updated.'); }
+  else if (c === 'sort') { ui.sort = t.value; V.progress(); var s = document.getElementById('sort'); if (s) s.focus(); say('Sorted.'); }
+  else if (c === 'gcat') { ui.glossCat = t.value; renderGloss(); }
+});
+document.addEventListener('input', function (ev) { if (ev.target.getAttribute && ev.target.getAttribute('data-input') === 'gloss') { ui.glossQ = ev.target.value; renderGloss(); } });
+document.addEventListener('submit', function (ev) {
+  var f = ev.target, kind = f.getAttribute('data-form'); if (!kind) return; ev.preventDefault();
+  if (kind === 'spot') {
+    var d = readSpotForm(f), mode = f.getAttribute('data-mode'), spot;
+    if (mode === 'update') { spot = B.updateSpot(S, f.getAttribute('data-id'), d); save(); }
+    else { if (!d.loc) { say('Please choose which part.'); return; } spot = B.addSpot(S, d); save(); }
+    var extra = gentlePrompt(spot);
+    if (mode === 'mini') { var c3 = document.querySelector('form[data-form=check3]'); if (c3) Array.prototype.forEach.call(c3.querySelectorAll('select[data-spot]'), function (x) { if (x.value !== 'same') B.quickIntensity(S, x.getAttribute('data-spot'), x.value); }); save(); say('Saved ' + B.spotName(spot) + '. ' + extra.join(' ')); if (ui.check) { ui.check.step = 4; V.check(); } return; }
+    go('/spot/' + spot.id); say('Saved ' + B.spotName(spot) + '. ' + extra.join(' '));
+  } else if (kind === 'worked') {
+    var ap = f.querySelector('input[name=approach]:checked'), rs = f.querySelector('input[name=result]:checked');
+    B.markWorked(S, f.getAttribute('data-id'), ap ? ap.value : 'direct', rs ? rs.value : ''); save(); go('/spot/' + f.getAttribute('data-id')); say('Saved. Well done.');
+  } else if (kind === 'check1') {
+    ui.check.overall = (f.querySelector('input[name=overall]:checked') || {}).value || 'same';
+    ui.check.minutes = +((f.querySelector('input[name=minutes]:checked') || {}).value || 20); ui.check.step = 2; V.check();
+  } else if (kind === 'check2') {
+    var y = (f.querySelector('input[name=flags]:checked') || {}).value === 'yes'; ui.check.flagged = y; ui.check.step = y ? 25 : 3; V.check();
+  } else if (kind === 'check3') {
+    var n = 0; Array.prototype.forEach.call(f.querySelectorAll('select[data-spot]'), function (s) { if (s.value !== 'same') { B.quickIntensity(S, s.getAttribute('data-spot'), s.value); n++; } });
+    save(); ui.check.step = 4; V.check(); say(n ? n + ' spots updated.' : 'No changes.');
+  } else if (kind === 'journal') {
+    var tx = f.elements.text.value.trim(); if (!tx) { say('The note is empty.'); return; }
+    S.journal.push({ date: B.today(), text: tx.slice(0, 4000) }); S.lastChange = B.today(); save(); V.progress(); say('Note saved.');
+  } else if (kind === 'equip') {
+    S.equipment = Array.prototype.map.call(f.querySelectorAll('input[name=eq]:checked'), function (x) { return x.value; }); S.lastChange = B.today(); save(); say('Equipment saved.');
+  } else if (kind === 'settings') {
+    ['contrast', 'bigText', 'breathVoice'].forEach(function (k) { S.settings[k] = !!f.querySelector('#set-' + k + ':checked'); }); save(); applySettings(); say('Settings saved.');
+  } else if (kind === 'import') {
+    var how = (f.querySelector('input[name=how]:checked') || {}).value || 'merge', file = document.getElementById('imp-file').files[0], out = document.getElementById('imp-result');
+    function doImport(text) {
+      try {
+        var inc = B.importBackup(text);
+        S = how === 'replace' ? inc : B.mergeStates(S, inc); save(); applySettings();
+        out.textContent = 'Imported. You now have ' + S.spots.length + ' spots.'; 
+      } catch (e) { out.textContent = e.message; }
+    }
+    if (file) { var rd = new FileReader(); rd.onload = function () { doImport(String(rd.result)); }; rd.readAsText(file); }
+    else doImport(f.elements.text.value);
+  }
+});
+window.addEventListener('hashchange', route);
+applySettings();
+route();
+if ('serviceWorker' in navigator && window.isSecureContext && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(function () { });
+window.__bcc = { state: function () { return S; } };
+})();
+</script>
+</body>
+</html>
